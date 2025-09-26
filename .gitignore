@@ -1,0 +1,10 @@
+# Ignora arquivos auxiliares de tex
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc

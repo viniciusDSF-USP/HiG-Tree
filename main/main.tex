@@ -1,0 +1,35 @@
+\documentclass[11pt]{beamer}
+\usepackage{subfiles} % Permite compilar arquivos separados
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{fancyvrb}
+
+\usetheme{Madrid}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{caption}[numbered]
+\numberwithin{figure}{section}
+
+\title{Estudo da HiG-Tree}
+\author{Erick \and Pedro \and Tiago \and Vinícius}
+\institute[]{UNIVERSIDADE DE SÃO PAULO \par MÉTODOS NUMÉRICOS PARA GERAÇÃO DE MALHAS} 
+\date{\today}
+
+\begin{document}
+
+    \frame{\titlepage}
+
+    \begin{frame}{Sumário}
+        \tableofcontents 
+    \end{frame}
+
+    \subfile{../vinicius/vinicius.tex} % Estrutura de dados da HiGtree
+    \subfile{../tiago/tiago.tex} % WLS e Stencil
+    \subfile{../pedro/pedro.tex} % Paralelismo e fringes
+    \subfile{../erick/erick.tex} % Exemplo Poisson
+
+\end{document}
