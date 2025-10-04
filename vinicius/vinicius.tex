@@ -166,13 +166,13 @@
 	\begin{minipage}{0.45\textwidth}
 		\begin{verbatim}
 			typedef struct hig_cell {
-				Point lowpoint; ------------
-				Point highpoint; -----------
-				int numcells[DIM]; ---------
-				struct hig_cell * parent; --
-				int posinparent; -----------
-				struct hig_cell **children;-
-				uniqueid ids[NUMIDS]; ------
+				Point lowpoint;
+				Point highpoint;
+				int numcells[DIM];
+				struct hig_cell * parent;
+				int posinparent;
+				struct hig_cell **children;
+				uniqueid ids[NUMIDS];
 			} hig_cell;
 		\end{verbatim}
 	\end{minipage}
@@ -186,10 +186,10 @@
 		$(n_1, n_2, \cdots, n_m)$
 		\vspace{-.3cm}
 		\begin{verbatim}
-			célula-pai
-			posição em relação ao pai
-			células-filho
-			id de cada célula/faceta
+Célula-pai
+Posição em relação ao pai
+Células-filho
+Id de cada célula/faceta
 		\end{verbatim}
 		
 	\end{minipage}
@@ -203,20 +203,31 @@
 \setLayout{vertical}
 \begin{frame}[fragile]{\smaller \smaller Facetas da HiG-Tree}
 	\vspace{-0.5cm}
-	\begin{verbatim}
-		typedef struct hig_facet {
-			hig_cell *c; --------- célula associada
-			int dim; ------------- m-1
-			int dir; ------------- {0,1}
-		} hig_facet;
-		
-		dir=0: Facetas geradas pelas arestas que contém o lowpoint.
-		dir=1: Facetas geradas pelas arestas que contém o highpoint.
-	\end{verbatim}
+	\begin{minipage}{0.35\textwidth}
+		\begin{verbatim}
+			typedef struct hig_facet {
+				hig_cell *c;
+				int dim;
+				int dir;
+			} hig_facet;
+			
+			dir=0: Facetas geradas pelas arestas que contém o lowpoint.
+			dir=1: Facetas geradas pelas arestas que contém o highpoint.
+		\end{verbatim}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.55\textwidth}
+		\vspace{-1.3cm}
+		\begin{verbatim}
+			Célula associada
+			Cada faceta tem dimensão m-1
+			Direção {0,1}
+		\end{verbatim}
+	\end{minipage}
 	
 	\vspace{-0.25cm}
 	\begin{center}
-		\resizebox{0.4\textwidth}{!}{
+		\resizebox{0.3\textwidth}{!}{
 			\begin{tikzpicture}[scale=1]
 				
 				\draw (0,0) rectangle (4,4);
@@ -249,17 +260,33 @@
 	Escrevemos a malha em formato AMR (\textit{Adaptive Mesh Refinement}) como entrada, por exemplo:
 	
 	{\scriptsize
-		\begin{verbatim}
-			0.0 8.0 -1.0 1.0 ----- lowpoint highpoint = xmin ymin xmax ymax
-			2 -------------------- numlevels
-			0.05 0.05 1 ---------- (level 1) delta numpatches = delta_x delta_y numpatches
-			1 1 160 40 ----------- initcell patchsize
-			0.025 0.025 4 -------- (level 2) delta numpatches = delta_x delta_y numpatches
-			1 1 320 16 ----------- initcell patchsize
-			1 65 320 16 ---------- initcell patchsize
-			1 17 16 48 ----------- initcell patchsize
-			305 17 16 48 --------- initcell patchsize
-		\end{verbatim}
+		\begin{minipage}{0.15\textwidth}
+			\begin{verbatim}
+				0.0 8.0 -1.0 1.0
+				2
+				0.05 0.05 1
+				1 1 160 40
+				0.025 0.025 4
+				1 1 320 16
+				1 65 320 16
+				1 17 16 48
+				305 17 16 48
+			\end{verbatim}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.75\textwidth}
+			\begin{verbatim}
+				lowpoint highpoint = xmin xmax ymin ymax
+				numlevels
+				(level 1) delta numpatches = delta_x delta_y numpatches
+				initcell patchsize
+				(level 2) delta numpatches = delta_x delta_y numpatches
+				initcell patchsize
+				initcell patchsize
+				initcell patchsize
+				initcell patchsize
+			\end{verbatim}
+		\end{minipage}
 	}
 	
 	então, geramos um arquivo de saída em formato VTK (\textit{Visualization Toolkit}) com \texttt{higtree/src/higtree-io.c} e visualizamos com o ParaView.
@@ -298,7 +325,7 @@
 %----------------------------------------------------------------------------------------------------------------------	
 \setLayout{vertical}
 \begin{frame}[fragile]{}
-	\vspace{-1cm}
+	\vspace{-0.5cm}
 	\begin{center}
 		\begin{minipage}{0.30\textwidth}
 			{\footnotesize
@@ -332,7 +359,7 @@
 %----------------------------------------------------------------------------------------------------------------------	
 \setLayout{vertical}
 \begin{frame}[fragile]{}
-	\vspace{-1.5cm}
+	\vspace{-0.4cm}
 	\begin{center}
 		\begin{minipage}{0.30\textwidth}
 			{\footnotesize
