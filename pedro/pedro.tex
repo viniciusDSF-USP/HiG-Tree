@@ -3,69 +3,6 @@
 %_______________________________________________________________________________________________________________________
 \begin{document}
 
-\section{Introdução}
-
-\begin{frame}{Motivação}
-\begin{itemize}
-\item Malhas hierárquicas baseadas em árvore combinam:
-\begin{itemize}
-\item Rapidez de discretizações cartesianas (diferenças finitas)
-\item Flexibilidade e precisão do refinamento local
-\end{itemize}
-\item \textbf{Desafio principal}: Adaptar o estêncil nas interfaces entre elementos de diferentes tamanhos
-\item Métodos tradicionais usam interpolações geométricas de alta ordem
-\item Estas interpolações são específicas por local e complexas em 3D
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Contribuição do Trabalho}
-\begin{block}{Nova Abordagem Proposta}
-\begin{itemize}
-\item Método robusto baseado em \textbf{interpolação meshless} (Moving Least Squares - MLS)
-\item Computa pesos da aproximação por diferenças finitas em malhas hierárquicas
-\item Permite configurações complexas de malha
-\item Mantém a ordem de precisão do método
-\item Mais flexível que métodos baseados em interpolações geométricas
-\end{itemize}
-\end{block}
-\end{frame}
-
-\begin{frame}{Trabalhos Relacionados}
-\begin{itemize}
-\item Métodos em malhas quadtree/octree (Losasso et al. 2004, Min et al. 2006)
-\item Restrição a malhas \textbf{graded} (2:1) para simplificar interpolações
-\item Métodos recentes para malhas \textbf{non-graded} (Batty 2017, Olshanskii 2013)
-\item Abordagens híbridas: diferenças finitas + interpolações meshless
-\item \textbf{Nossa contribuição}: MLS para interfaces coarse-fine em malhas hierárquicas
-\end{itemize}
-\end{frame}
-
-\section{Malhas Hierárquicas (HiG)}
-
-\begin{frame}{Malhas Hierárquicas - Conceito}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\begin{itemize}
-\item Estrutura de dados em árvore
-\item Cada folha pode ser particionada em qualquer arranjo matricial de células
-\item Casos particulares:
-\begin{itemize}
-\item Quadtree (2D): 4 células
-\item Octree (3D): 8 células
-\end{itemize}
-\item Malhas gerais impõem dificuldades para esquemas FD
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{figura1.png}
-\caption{Estrutura de dados HiG tree}
-\end{figure}
-\end{column}
-\end{columns}
-\end{frame}
-
 \section{Aproximação de Derivadas em HiGs}
 
 \begin{frame}{Problema Modelo: Equação de Poisson}
@@ -79,7 +16,7 @@
 \begin{column}{0.5\textwidth}
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth]{figura2.png}
+\includegraphics[width=0.8\textwidth]{imgs/figura2.png}
 \caption{Estêncil FD de 2ª ordem}
 \end{figure}
 \end{column}
@@ -218,7 +155,7 @@ U(\mathbf{x}) = \sum_{i=1}^m w_i(\mathbf{x}) u(\mathbf{x}_i)
 \begin{column}{0.5\textwidth}
 \begin{figure}
 \centering
-\includegraphics[width=0.9\textwidth]{figura3a.png}
+\includegraphics[width=0.9\textwidth]{imgs/figura3a.png}
 \caption{Condição Dirichlet}
 \end{figure}
 \end{column}
@@ -238,7 +175,7 @@ U(\mathbf{x}) = \sum_{i=1}^m w_i(\mathbf{x}) u(\mathbf{x}_i)
 \begin{column}{0.5\textwidth}
 \begin{figure}
 \centering
-\includegraphics[width=0.9\textwidth]{figura3b.png}
+\includegraphics[width=0.9\textwidth]{imgs/figura3b.png}
 \caption{Condição Neumann}
 \end{figure}
 \end{column}
@@ -269,7 +206,7 @@ U_r = U_c + h\sigma_b
 
 \begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth]{figura4.png}
+\includegraphics[width=0.7\textwidth]{imgs/figura4.png}
 \caption{Malhas refinadas: (a) $h=1/4$, (b) $h=1/8$}
 \end{figure}
 \end{frame}
@@ -313,7 +250,7 @@ $h$ & $\|u-u_h\|_{L_2}$ & EOC & $\|u-u_h\|_{L_\infty}$ & EOC \\
 \begin{column}{0.5\textwidth}
 \begin{figure}
 \centering
-\includegraphics[width=0.9\textwidth]{figura5.png}
+\includegraphics[width=0.9\textwidth]{imgs/figura5.png}
 \caption{Malha non-graded para teste de Poisson}
 \end{figure}
 \end{column}

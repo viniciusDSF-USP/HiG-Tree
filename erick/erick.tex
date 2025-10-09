@@ -10,7 +10,6 @@
 \begin{frame}
 	\frametitle{Mínimos quadrados, mínimos quadrados ponderados, mínimos quadrados móveis}
 \end{frame}
-%----------------------------------------------------------------------------------------------------------------------	
 
 \setLayout{vertical}
 \begin{frame}{Mínimos quadrados -- LS}
@@ -77,50 +76,6 @@
 			{\langle f,\varphi_n\rangle}_{W(x)}
 		\end{bmatrix}.
 	\]
-\end{frame}
-
-\section{Exemplo de Poisson}
-
-
-%----------------------------------------------------------------------------------------------------------------------	
-\setLayout{mainpoint}
-\begin{frame}
-	\frametitle{Exemplo de Poisson}
-\end{frame}
-%----------------------------------------------------------------------------------------------------------------------	
-
-
-
-%----------------------------------------------------------------------------------------------------------------------	
-\setLayout{vertical}
-% \begin{frame}{Título}
-% 	...
-% \end{frame}
-%----------------------------------------------------------------------------------------------------------------------	
-
-\begin{frame}{Equação de Poisson}
-	A equação de Poisson é uma EDP da forma\[
-		\nabla^2 u(x) = f(x),\quad x\in\Omega,
-	\] em que $\nabla^2 u = \operatorname{div}(\operatorname{grad}(u))$.
-\end{frame}
-
-\begin{frame}{Condições de fronteira}
-	\begin{itemize}
-		\item Dirichlet: $u|_{\partial\Omega} = g_D$.
-		\item Neumann: $\partial u/\partial n = g_N$ em $\partial\Omega$.
-		\item Robin: $\alpha u + \beta\partial u/\partial n = h$ em $\partial\Omega$.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Diferenças finitas}
-	Considera-se $\Omega = [a,b]\times[c,d]$. Usando uma malha cartesiana regular com espaçamentos $\delta x$ e $\delta y$, obtém-se\[
-		\frac{u_{i+1,j}-2u_{i,j}+u_{i-1,j}}{\delta x^{2}}+\frac{u_{i,j+1}-2u_{i,j}+u_{i,j-1}}{\delta y^{2}}+\mathcal{O}(\delta x^{2}+\delta y^{2})=f_{i,j},
-	\]\pause
-	ou ainda, desprezando-se os termos de ordem 2,
-	\[
-		\frac{U_{i+1,j}-2U_{i,j}+U_{i-1,j}}{\delta x^{2}}+\frac{U_{i,j+1}-2U_{i,j}+U_{i,j-1}}{\delta y^{2}}=f_{i,j},
-	\]\pause
-	onde $U_{i,j}$ representa uma aproximação para a função $u_{i,j}$, avaliada em $(x_{i},y_{j}) = (a+i\delta x, b+j\delta y)$, e $f_{i,j}=f(x_i, y_j)$.
 \end{frame}
 
 \end{document}

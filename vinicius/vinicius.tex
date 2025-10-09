@@ -1,45 +1,29 @@
 \documentclass[../main/main.tex]{subfiles}
 \usetikzlibrary{trees}
 
-%_______________________________________________________________________________________________________________________
 \begin{document}
-	
-	
-	
 	
 \section{Estrutura de dados da HiGtree}
 
-
-
-%-------Slide 1-------	
-%----------------------------------------------------------------------------------------------------------------------	
 \setLayout{mainpoint}
 \begin{frame}
 	\frametitle{Estrutura de dados da HiGtree}
 \end{frame}
-%----------------------------------------------------------------------------------------------------------------------	
 
 
-
-
-%-------Slide 2-------	
-%----------------------------------------------------------------------------------------------------------------------	
 \setLayout{vertical}
 \begin{frame}
 	\begin{block}{}
-		A HiG-Tree (\textit{Hierarchical Grid Tree}) é uma estrutura de dados em árvore usada em malhas adaptativas, que permite refinamento, dividindo o espaço recursivamente, economizando memória e tempo de processamento.
+    A HiG-Tree (\textit{Hierarchical Grid Tree}) é uma estrutura de dados em
+    árvore usada em malhas adaptativas, que permite refinamento, dividindo o
+    espaço recursivamente, economizando memória e tempo de processamento.
 	\end{block}
 	
 	\begin{block}{}
 		Nos casos 2D e 3D, chamamos de \textit{quadtree} e \textit{octree}, respectivamente.
 	\end{block}
 \end{frame}
-%----------------------------------------------------------------------------------------------------------------------	
 
-
-
-%-------Slide 2-------	
-%----------------------------------------------------------------------------------------------------------------------	
 \setLayout{vertical}
 \begin{frame}{\smaller \smaller Exemplo de HiG-Tree}
 	\vspace{-1.5cm}
@@ -155,12 +139,8 @@
 		\captionof{figure}{Exemplo de malha 2D e sua \textit{quadtree} associada. \\ Fonte: \citeauthoronline{Sousa2019}}
 	\end{center}
 \end{frame}
-%----------------------------------------------------------------------------------------------------------------------	
 
 
-
-%-------Slide 3-------	
-%----------------------------------------------------------------------------------------------------------------------	
 \setLayout{vertical}
 \begin{frame}[fragile]{\smaller \smaller Células da HiG-Tree}
 	\begin{minipage}{0.45\textwidth}
@@ -194,12 +174,7 @@ Id de cada célula/faceta
 		
 	\end{minipage}
 \end{frame}
-%----------------------------------------------------------------------------------------------------------------------	
 
-
-
-%-------Slide 4-------	
-%----------------------------------------------------------------------------------------------------------------------	
 \setLayout{vertical}
 \begin{frame}[fragile]{\smaller \smaller Facetas da HiG-Tree}
 	\vspace{-0.5cm}
@@ -247,17 +222,13 @@ Id de cada célula/faceta
 		\captionof{figure}{Facetas de uma célula 2D.}
 	\end{center}
 \end{frame}
-%----------------------------------------------------------------------------------------------------------------------	
 
-
-
-%-------Slide 5-------	
-%----------------------------------------------------------------------------------------------------------------------	
 \setLayout{vertical}
 \begin{frame}[fragile]{\smaller \smaller Visualização das malhas}
 	
 	\smaller
-	Escrevemos a malha em formato AMR (\textit{Adaptive Mesh Refinement}) como entrada, por exemplo:
+  Escrevemos a malha em formato AMR (\textit{Adaptive Mesh Refinement}) como
+  entrada, por exemplo:
 	
 	{\scriptsize
 		\begin{minipage}{0.15\textwidth}
@@ -291,12 +262,7 @@ Id de cada célula/faceta
 	
 	então, geramos um arquivo de saída em formato VTK (\textit{Visualization Toolkit}) com \texttt{higtree/src/higtree-io.c} e visualizamos com o ParaView.
 \end{frame}
-%----------------------------------------------------------------------------------------------------------------------	
 
-
-
-%-------Slide 6-------	
-%----------------------------------------------------------------------------------------------------------------------	
 \setLayout{vertical}
 \begin{frame}[fragile]{\smaller \smaller Visualização das malhas}
 	\begin{center}
@@ -317,12 +283,7 @@ Id de cada célula/faceta
 		\captionof{figure}{Exemplo de malha 2D com 1 nível de refinamento.}
 	\end{center}
 \end{frame}
-%----------------------------------------------------------------------------------------------------------------------	
 
-
-
-%-------Slide 7-------	
-%----------------------------------------------------------------------------------------------------------------------	
 \setLayout{vertical}
 \begin{frame}[fragile]{}
 	\vspace{-0.5cm}
@@ -351,12 +312,7 @@ Id de cada célula/faceta
 		\captionof{figure}{Exemplo de malha 2D com 2 níveis de refinamento.}
 	\end{center}
 \end{frame}
-%----------------------------------------------------------------------------------------------------------------------	
 
-
-
-%-------Slide 8-------	
-%----------------------------------------------------------------------------------------------------------------------	
 \setLayout{vertical}
 \begin{frame}[fragile]{}
 	\vspace{-0.4cm}
@@ -390,12 +346,7 @@ Id de cada célula/faceta
 		\captionof{figure}{Exemplo de malha 2D com 3 níveis de refinamento.}
 	\end{center}
 \end{frame}
-%----------------------------------------------------------------------------------------------------------------------	
 
-
-
-%-------Slide 9-------	
-%----------------------------------------------------------------------------------------------------------------------	
 \setLayout{vertical}
 \begin{frame}{}
 	\begin{center}
@@ -411,10 +362,6 @@ Id de cada célula/faceta
 		\captionof{figure}{Exemplo de malha 2D com 3 níveis de refinamento.}
 	\end{center}
 \end{frame}
-%----------------------------------------------------------------------------------------------------------------------	
-
-
 
 
 \end{document}
-%_______________________________________________________________________________________________________________________
