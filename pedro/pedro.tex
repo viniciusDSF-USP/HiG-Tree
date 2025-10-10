@@ -73,7 +73,12 @@ U(\mathbf{x}) = \sum_{j=1}^n c_j \Phi_j(\mathbf{x})
 \begin{itemize}
 \item $\Phi_j$: funções de base polinomiais
 \item $c_j$: coeficientes determinados por mínimos quadrados
-\item Minimização do erro ponderado:
+\item Dado um conjunto de $m$ pontos conhecidos
+  $\mathbf{x}_{1},\mathbf{x}_{2},\ldots,\mathbf{x}_{m} \in \mathbb{R}^{d}$, $m
+  > n$, e $m$ valores de função associados
+  $u_{1}=u(\mathbf{x}_{1}),u_{2}=u(\mathbf{x}_{2}),\ldots,u_{m}=u(\mathbf{x}_{m})$,
+  o procedimento para interpolar $u$ em $\mathbf{x}$ usando MLS é minimizar a
+  função de erro:
 \[
 E(\mathbf{c}) = \sum_{i=1}^m \left(U(\mathbf{x}_i) - u_i\right)^2 \lambda_i(\mathbf{x})
 \]
@@ -129,6 +134,7 @@ U(\mathbf{x}) = \sum_{i=1}^m w_i(\mathbf{x}) u(\mathbf{x}_i)
 \item Decomposição QR de $WP \rightarrow R$ e $Q_\parallel$
 \item Calcule $\Phi = (\Phi_1(\mathbf{x}), \ldots, \Phi_n(\mathbf{x}))^T$
 \item Resolva $R^T \mathbf{d} = \Phi$
+\item $\text{Resolver o sistema triangular } R^T \mathbf{d} = \mathbf{\Phi} \Rightarrow \mathbf{d} = R^{-T} \mathbf{\Phi}$
 \item Calcule $\mathbf{w} = W Q_\parallel \mathbf{d}$
 \end{enumerate}
 \end{block}
@@ -321,13 +327,13 @@ $\pi/256$ & 7.65e-5 & 2.4 & 1.70e-4 & 1.8 \\
 % \bottomrule
 % \end{tabular}
 % \end{table}
-
-\begin{itemize}
-\item Números de condição ~32× maiores que Batty [12]
-\item Escala com $\kappa(A) \approx 23/h^2$
-\item Preenchimento (fill-in) decrescente com refinamento
-\end{itemize}
-\end{frame}
+%
+% \begin{itemize}
+% \item Números de condição ~32× maiores que Batty [12]
+% \item Escala com $\kappa(A) \approx 23/h^2$
+% \item Preenchimento (fill-in) decrescente com refinamento
+% \end{itemize}
+% \end{frame}
 
 \begin{frame}{ConclusõesParciais}
 \begin{block}{Vantagens do Método Proposto}
