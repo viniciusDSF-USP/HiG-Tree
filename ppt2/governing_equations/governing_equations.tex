@@ -3,19 +3,34 @@
 \begin{document}
 \section{Equações governantes}
 
-% %--------------------------------- 
-% \setLayout{mainpoint}
-% \begin{frame}
-%   \frametitle{Equações governantes}
-% \end{frame}
-%
+%--------------------------------- 
+\setLayout{mainpoint}
+\begin{frame}
+  \frametitle{Equações governantes}
+\end{frame}
+
 % %--------------------------------- 
 % \setLayout{vertical}
 % \begin{frame}
 %   Teste
 % \end{frame}
 
-\begin{frame}{Equações Governantes - Conservação da Massa}
+\setLayout{vertical}
+\begin{frame}{Hipóteses}
+  \begin{block}{Características do Escoamento}
+    \begin{itemize}
+      \item \textbf{Não estacionário}
+      \item \textbf{Escoamento laminar}
+      \item \textbf{Escoamento isotérmico}
+      \item \textbf{Fluidos incompressíveis}
+      \item \textbf{Duas fases imiscíveis}
+      \item \textbf{Sem transferência de massa através da interface}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\setLayout{vertical}
+\begin{frame}{Conservação da Massa}
   \begin{block}{Equação da Continuidade}
     \[
       \nabla \cdot \mathbf{u} = 0
@@ -29,7 +44,8 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Equações Governantes - Balanço de Momentum Linear}
+\setLayout{vertical}
+\begin{frame}{Balanço de Momentum Linear}
   \begin{block}{Forma Dimensional}
     \scriptsize
     \[
@@ -57,7 +73,7 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Equações Governantes - Forma Adimensional}
+\begin{frame}{Forma Adimensional}
   \begin{block}{Equação do Momentum Adimensional}
     \scriptsize
     \[
@@ -84,7 +100,9 @@
     \item $f$: fração volumétrica ($0 \leq f \leq 1$)
     \item Reconstrução geométrica da interface via método PLIC
     \item Algoritmo de advecção com passo fracionado (split)
-    \item Evita transporte duplo do mesmo fluido
+    \begin{itemize}
+      \item Evita transporte duplo do mesmo fluido
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
