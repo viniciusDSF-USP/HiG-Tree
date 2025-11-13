@@ -7,12 +7,12 @@
   \begin{itemize}
     \item \textbf{HiG-Tree}: estrutura de dados hierárquica em malha cartesiana
     \item Elementos de tamanhos variáveis com refinamento espacial recursivo
-    \item Baseada em \textbf{m-tree} (exemplos: Quadtree 2D, Octree 3D)
+    \item Baseada em \textbf{m-tree} (Exemplo na figura)
     \item Malha não-estruturada com refinamento arbitrário
     \item Projetada para ser genérica e extensível a qualquer número de dimensões
   \end{itemize}
   \begin{center}
-    \includegraphics[width=0.4\textwidth]{hig-tree-structure.png}
+    \includegraphics[width=0.8\textwidth]{imgs/hig-tree-structure.png}
   \end{center}
 \end{frame}
 
@@ -30,15 +30,30 @@
 \end{frame}
 
 \begin{frame}{HiG-Tree - Aproximações e Interpolações}
-  \begin{itemize}
-    \item Módulo para estimativa de propriedades em células e facetas
-    \item Método dos \textbf{Mínimos Quadrados Móveis (MLS)}
-    \item Seleção da ordem polinomial de aproximação
-    \item Elimina dependência geométrica usando nuvem de pontos vizinhos
-    \item Essencial para malhas com elementos de diferentes níveis de refinamento
-  \end{itemize}
-\end{frame}
 
+  \begin{columns}
+    
+    % Coluna da esquerda - Texto
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \item Módulo para estimativa de propriedades em células e facetas
+        \item Método dos \textbf{Mínimos Quadrados Móveis (MLS)}
+        \item Seleção da ordem polinomial de aproximação
+        \item Elimina dependência geométrica usando nuvem de pontos vizinhos
+        \item Essencial para malhas com elementos de diferentes níveis de refinamento
+      \end{itemize}
+    \end{column}
+    
+    % Coluna da direita - Imagem
+    \begin{column}{0.5\textwidth}
+      \begin{center}
+        \includegraphics[width=\textwidth]{imgs/stencil.png}
+      \end{center}
+    \end{column}
+    
+  \end{columns}
+
+\end{frame}
 \begin{frame}{Exemplo: Aproximação por Diferenças Finitas}
   \begin{block}{Derivada Segunda com Interpolação MLS}
     \[
@@ -82,7 +97,7 @@
       \begin{itemize}
         \item Método VOF para representação de interface
       \end{itemize}
-    \item Dimensão arbitrária (1D, 2D, 3D)
+    \item Dimensão arbitrária (1D, 2D, 3D, ..., ND)
     \item Design modular para implementação fácil de novas técnicas
   \end{itemize}
 \end{frame}
