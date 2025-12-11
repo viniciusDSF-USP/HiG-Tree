@@ -1,0 +1,67 @@
+\documentclass[../main/main.tex]{subfiles}
+
+\begin{document}
+\section{Interpolação de malha}
+
+%--------------------------------- 
+\setLayout{mainpoint}
+
+\begin{frame}
+  \frametitle{Interpolação de malha}
+\end{frame}
+
+\setLayout{vertical}
+
+\begin{frame}{Interpolação}
+  \begin{enumerate}
+    \item A cada etapa de refinamento, uma nova malha é criada.
+    \item Os campos (velocidade, pressão, viscosidade, densidade, fração de volume) precisam ser transferidos da malha antiga para a nova.
+    \item Esse processo é feito por interpolação baseada em estêncil.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+    \item Para cada célula ou face da nova malha:
+          \begin{itemize}
+            \item pega-se o centro da célula ou face;
+            \item busca-se na malha antiga a vizinhança correspondente;
+            \item monta-se um estêncil local;
+            \item avalia-se o campo antigo naquele ponto.
+          \end{itemize}
+    \item O valor interpolado é colocado na propriedade distribuída da nova malha.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{imgs/desenho_interpolacao.pdf}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Interpolação de Pressão}
+  \begin{itemize}
+    \item Itera-se sobre todas as células da nova malha.
+    \item Para cada centro:
+          \begin{itemize}
+            \item constrói-se um estêncil no domínio antigo;
+            \item usa-se \texttt{compute\_value\_at\_point} para obter a pressão interpolada;
+            \item escreve-se na propriedade \texttt{dpp} da nova malha.
+          \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Interpolação de Velocidade}
+  \begin{itemize}
+    \item Velocidades são definidas nas faces.
+    \item Para cada face da nova malha:
+          \begin{itemize}
+            \item obtém-se o centro da face;
+            \item constrói-se o estêncil das faces antigas;
+            \item usa-se \texttt{dp\_interpolate\_from\_stencil};
+            \item escreve-se em \texttt{dpu[dim]} da nova malha.
+          \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\end{document}
