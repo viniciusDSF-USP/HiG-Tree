@@ -1,0 +1,230 @@
+\documentclass[../main/main.tex]{subfiles}
+
+\begin{document}
+\section{Refinamento Adaptativo da Interface}
+
+%--------------------------------- 
+\setLayout{mainpoint}
+\begin{frame}
+  \frametitle{Refinamento Adaptativo da Interface}
+\end{frame}
+
+\subsection{Funções}
+\setLayout{vertical}
+\begin{frame}[fragile]
+  \frametitle{Função de Controle e Parâmetros}
+  
+  \begin{block}{Função principal: \texttt{higflow\_make\_adapted\_tree\_params}}
+    \scriptsize
+    \begin{verbatim}
+hig_cell *higflow_make_adapted_tree_params(
+    higflow_solver *ns, 
+    int num_levels, 
+    real thresholds[]
+)
+    \end{verbatim}
+  \end{block}
+  
+  \begin{itemize}
+    \item \textbf{ns}: Ponteiro para o Solver Navier-Stokes.
+    \item \textbf{num\_levels}: Número máximo de níveis de refinamento.
+    \item \textbf{thresholds[]}: Array contendo os limiares de distância para cada nível de refinamento.
+    \item \textbf{Retorno}: Raiz da nova árvore HiG com a malha adaptada.
+  \end{itemize}
+\end{frame}
+
+\setLayout{vertical}
+\begin{frame}[fragile]
+  \frametitle{Identificação da Interface\\(Coleta de Sementes)}
+  
+  \begin{block}{Critério de Coleta de Células da Interface}
+    \scriptsize
+    \begin{verbatim}
+// Coletar células que contêm a interface
+real val = dp_get_value(ns->ed.mult.dpfracvol, clid);
+if (val > 0.001 && val < 0.999) {
+    hig_get_center(c, seeds[seed_count].center);
+    seed_count++;
+}
+    \end{verbatim}
+  \end{block}
+  
+  \begin{itemize}
+    \item Células com fração volumétrica (dpfracvol) entre 0.001 e 0.999 são identificadas como contendo a interface.
+    \item O centro dessas células é armazenado como "semente", servindo como referência de distância para o refinamento.
+  \end{itemize}
+\end{frame}
+
+\setLayout{vertical}
+\begin{frame}[fragile]
+  \frametitle{Critério de Refinamento Multi-nível}
+  
+  \begin{block}{Determinação do Nível Alvo}
+    \scriptsize
+    \begin{verbatim}
+// Verificar distância da célula à semente mais próxima
+real dist = sqrt(dist_sq_c(center_s, center_n));
+int target_level = 0;
+
+// Determinar nível alvo baseado nos limiares
+for (int l = num_levels - 1; l >= 0; l--) {
+    if (dist <= thresholds[l]) {
+        target_level = l + 1;
+        break;
+    }
+}
+    \end{verbatim}
+  \end{block}
+  
+  \begin{itemize}
+    \item O nível de refinamento (\textit{target\_level}) é determinado pela distância (\textit{dist}) da célula à semente da interface mais próxima.
+    \item Quanto maior o nível de refinamento aplicado, menor a distância.
+    \item Exemplo: \textit{thresholds[0]} (0.05) para Nível 1; \textit{thresholds[1]} (0.03) para Nível 2.
+  \end{itemize}
+\end{frame}
+
+\setLayout{vertical}
+\begin{frame}[fragile]
+  \frametitle{Execução e Propagação do Refinamento}
+  
+  \begin{block}{Passos do Algoritmo de Refinamento Progressivo}
+    \tiny
+    \begin{verbatim}
+// Executar múltiplas passadas para propagação completa
+for (int pass = 0; pass < num_levels + 1; pass++) {
+    // Encontrar células que precisam ser refinadas
+    if (current_lvl < target_level) {
+        to_refine[refine_count++] = neigh;
+    }
+    
+    // Aplicar refinamento
+    for(int i=0; i<refine_count; i++) {
+        if(hig_get_number_of_children(to_refine[i]) == 0) {
+            int nc[DIM];
+            for(int d=0; d<DIM; d++) nc[d] = 2;
+            hig_refine_uniform(to_refine[i], nc);
+        }
+    }
+}
+    \end{verbatim}
+  \end{block}
+  
+  \begin{itemize}\footnotesize
+    \item Múltiplas passadas ($\text{num\_levels} + 1$) são necessárias para garantir a propagação completa do refinamento pelos vizinhos.
+    \item A função \texttt{hig\_refine\_uniform} divide uma célula folha em $2^D$ células filhas, onde $D$ é a dimensão.
+  \end{itemize}
+\end{frame}
+
+\setLayout{vertical}
+\begin{frame}[fragile]
+  \frametitle{Engrossamento Controlado da Malha}
+  
+  \begin{block}{Critério de Engrossamento e Estabilidade}
+    \tiny
+    \begin{verbatim}
+// Critério de distância com histerese
+if (all_leaves) {
+    real dist = sqrt(min_d2);
+    real threshold = thresholds[parent_lvl] + coarsen_hys;
+    
+    if (dist > threshold) {
+        safe_to_merge = 1;
+    }
+}
+
+// Aplicação
+if (safe_to_merge) {
+    hig_merge_children(parents_to_merge[i]);
+}
+    \end{verbatim}
+  \end{block}
+  
+  \begin{itemize}\footnotesize
+    \item O engrossamento (fusão de células filhas) ocorre apenas em regiões distantes da interface.
+    \item É adicionada uma margem de segurança (\texttt{coarsen\_hys} = 0.005) ao limiar de distância para evitar oscilações no refinamento/engrossamento (histerese).
+    \item O processo é realizado em 4 passadas para garantir a estabilidade numérica da malha.
+  \end{itemize}
+\end{frame}
+
+\subsection{Fluxo de Execução}
+\setLayout{vertical}
+\begin{frame}
+  \frametitle{Fluxo de Execução}
+  
+  \begin{enumerate}
+    \item \textbf{Clonagem da Malha Original}: Cria-se uma cópia da HiGTree para aplicar as modificações.
+    \item \textbf{Identificação da Interface}: Coleta de células "sementes" para guiar o refinamento.
+    \item \textbf{Refinamento Progressivo}: Múltiplas passadas de refinamento baseadas na distância aos limiares.
+    \item \textbf{Engrossamento Controlado}: Remoção de refinamento em regiões distantes da interface (usando histerese).
+    \item \textbf{Retorno da Malha Adaptada}: Substituição da malha original pela nova malha adaptada, preservando a topologia da interface.
+  \end{enumerate}
+\end{frame}
+
+\subsection{Exemplo}
+% --- Slides 1 e 2: Refinamento de Nível 1 ---
+\setLayout{vertical}
+\begin{frame}
+  \frametitle{Exemplo com \texttt{threshold[] = \{0.05, 0.03\}}}
+  \vspace{1cm}
+  
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{imgs/0to1.png}
+      \captionof{figure}{Transição: Nível 0}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{imgs/1.png}
+      \captionof{figure}{Resultado: Nível 1}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% --- Slides 3 e 4: Refinamento de Nível 2 ---
+\setLayout{vertical}
+\begin{frame}
+  \frametitle{Refinamento Adicional para Nível 2}
+  \vspace{1cm}
+  
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{imgs/1to2.png}
+      \captionof{figure}{Transição: Nível 1}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{imgs/2.png}
+      \captionof{figure}{Resultado: Níveis 1 e 2}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% --- Slides 5, 6 e 7: Simulação da Bolha ---
+\setLayout{vertical}
+\begin{frame}
+  \frametitle{Evolução Temporal do Refinamento da Bolha}
+  \vspace{1.5cm}
+  
+  \centering
+  \begin{columns}
+    \begin{column}{0.33\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{imgs/bolha0.png}
+      \captionof{figure}{Tempo Inicial ($\text{t}=0$)}
+    \end{column}
+    \begin{column}{0.33\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{imgs/bolha1.png}
+      \captionof{figure}{\footnotesize Tempo Intermediário ($\text{t}=5$)}
+    \end{column}
+    \begin{column}{0.33\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{imgs/bolha2.png}
+      \captionof{figure}{Tempo Final ($\text{t}=10$)}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\end{document}

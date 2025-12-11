@@ -1,0 +1,182 @@
+\documentclass[aspectratio=169,t,xcolor=table]{beamer}
+\usepackage[portuguese,brazilian,brazil]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{tikz}
+\usepackage{booktabs} 
+\usepackage{subcaption}
+\usepackage{subfiles}
+
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{abntex2cite}
+\usepackage{cite}
+\usepackage{listings}
+
+
+%\renewcommand\citeleft{[}
+%\renewcommand\citeright{]}
+\hypersetup{
+	pdfborder={0 0 0},            
+	pdftoolbar=true,            
+	pdfmenubar=true,              
+	pdffitwindow=false,
+	pdfstartview={FitH},          
+	pdfauthor={Erick, Pedro, Thiago, Vinicius, Daniel},
+	pdftitle={Hig-Flow}, 
+	pdfsubject={Hig-Flow},
+	pdfproducer={LaTeX},   
+	pdfcreator={pdfLaTeX},  
+	pdfnewwindow=true,      
+	colorlinks=true,      
+	linkcolor=blue,          
+	citecolor=blue,        
+	filecolor=magenta,     
+	urlcolor=blue
+}
+\usetheme{Ufg}
+
+
+\setbeamertemplate{theorems}[numbered]
+\setbeamertemplate{caption}[numbered]
+
+\setPrimaryColor{UFGBlue} 
+\setLogos{lib/logos/icmc.png}{lib/logos/licmc.png}
+
+%______________________________________________________________________________
+\begin{document}
+	
+	
+
+%-------Capa-------	
+%----------------------------------------------------------------------------------------------------------------------	
+\title{Título a Definir}
+\author{Erick Rodrigues Canterle\inst{1}  \and  Pedro Vinicius Souza Coimbra\inst{2} \and \\
+	Thiago Ferreira de França e Queiroz\inst{3} \and Vinícius de Sá Ferreira \inst{4} \and \\
+	Daniel Garcia Leal Raymundo\inst{5}}
+
+\institute[USP] 
+{
+	\inst{1} \inst{2}\inst{3}\inst{4}
+	ICMC - Instituto De Ciências Matemáticas e de Computação \\
+	Universidade de São Paulo
+	
+	\inst{5}
+	FCUP - Faculdade de Ciências da Universidade do Porto \\
+	Universidade do Porto
+}
+\date{\today}
+\frame[noframenumbering]{\titlepage}
+%----------------------------------------------------------------------------------------------------------------------
+
+
+
+%-------Sumário-------	
+%----------------------------------------------------------------------------------------------------------------------	
+\setLayout{vertical}
+\begin{frame}{Índices}
+	\tableofcontents
+\end{frame}
+%----------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+%
+%----------------------------------------------------------------------------------------------------------------------
+%-------Procedimento Numérico-------
+\subfile{../interface_refinement/interface_refinement.tex}
+%----------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+%\section{Agradecimentos}
+
+\setLayout{blank}
+\begin{frame}
+	
+	\centering
+	\vspace{1cm}
+  \textbf{Nossos sinceros agradecimentos ao Daniel. Sua ajuda foi indispensável
+  para a  para a realização deste trabalho}
+
+	\begin{figure}
+		\centering
+		\begin{subfigure}{0.2\textwidth}
+			\centering
+			\includegraphics[height=1cm]{lib/logos/icmc.png}
+		\end{subfigure}
+		\qquad 
+		\begin{subfigure}{0.2\textwidth}
+			\centering
+			\includegraphics[height=1cm]{lib/logos/logo_usp_white.png}
+		\end{subfigure}
+		
+	\end{figure}
+	
+\end{frame}
+
+
+
+\setLayout{blank}
+\begin{frame}
+	
+	\centering
+	\vspace{2cm}
+	
+	\textbf{\Huge Muito Obrigado Pela Atenção}
+	
+	\ \\
+	
+	\textbf{Dúvidas e Sugestões}
+	\ \\
+	
+	\text{\footnotesize Erick Rodrigues Canterle, } \\
+	\text{\footnotesize pedro.coimbra@usp.br,} \\
+	\text{\footnotesize queiroztff@usp.br ou} \\
+	\text{\footnotesize desaferreirav@usp.br}
+	\vspace{2cm}
+	\begin{figure}
+		\centering
+		\begin{subfigure}{0.2\textwidth}
+			\centering
+			\includegraphics[height=1cm]{lib/logos/icmc.png}
+		\end{subfigure}
+		\qquad 
+		\begin{subfigure}{0.2\textwidth}
+			\centering
+			\includegraphics[height=1cm]{lib/logos/logo_usp_white.png}
+		\end{subfigure}
+		
+	\end{figure}
+	
+\end{frame}
+%----------------------------------------------------------------------------------------------------------------------
+
+
+
+%-------Referências-------	
+%----------------------------------------------------------------------------------------------------------------------
+\section{Referências}
+\setLayout{horizontal}
+\begin{frame}[allowframebreaks]
+	\frametitle{Referências}
+	\smaller
+	\bibliography{../references.bib}
+	\nocite{}
+	%\bibliographystyle{abntex2-alf}
+\end{frame}
+%----------------------------------------------------------------------------------------------------------------------	
+
+
+
+
+\end{document}
+%______________________________________________________________________________
