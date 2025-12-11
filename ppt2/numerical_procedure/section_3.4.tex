@@ -1,0 +1,93 @@
+\documentclass[../main/main.tex]{subfiles}
+
+\begin{document}
+\subsection{Advecção da Interface}
+
+\begin{frame}{Advecção Fracionada por Dimensões}
+  \begin{block}{Equação de Transporte}
+      \[
+        \frac{\partial f}{\partial t} + \nabla \cdot (\mathbf{u} f) = 0
+      \]
+      \scriptsize
+      \(\mathbf{f}\): fração volumétrica \hfill \(\mathbf{u}\): velocidade \hfill
+      \(\nabla \cdot (\mathbf{u} f)\): divergente do fluxo da fração.
+  \end{block}
+  
+  \begin{itemize}
+    \item A equação é resolvida sequencialmente nas direções $x$, $y$ e $z$, com $\mathbf{u} = (u,v,w)$ e $\mathbf{\Phi} = \mathbf{u} f = (F,G,H)$
+    \item Atualizações sucessivas da fração de volume:
+      \[
+        f^n \rightarrow f^{*} \rightarrow f^{**} \rightarrow f^{n+1}
+      \]
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \vspace{-2cm}
+  \begin{block}{Forma Discretizada - Direção $x$}
+  \scriptsize
+  \[
+  f^{*}_{i,j,k} =
+  \frac{
+    f^{n}_{i,j,k} + \frac{\Delta t}{\Delta x}\left(F^{n}_{i-\frac{1}{2},j,k} - F^{n}_{i+\frac{1}{2},j,k}\right)
+  }{
+    1 - \frac{\Delta t}{\Delta x}\left(u^{n}_{i+\frac{1}{2},j,k} - u^{n}_{i-\frac{1}{2},j,k}\right)
+  }
+  \]
+  \(f^{n}_{i,j,k}:\) fração do volume na célula $(i,j,k)$, no tempo $t^n = n \Delta t$
+  \end{block}
+\end{frame}
+
+%------------------------------------------------------------%
+
+\begin{frame}{Advecção Fracionada - Direção $y$}
+  \vspace{-2cm}
+  \begin{block}{Atualização em $y$}
+  \scriptsize
+  \[
+  f^{**}_{i,j,k} =
+  \frac{
+    f^{*}_{i,j,k} + \frac{\Delta t}{\Delta y}\left(G^{*}_{i,j-\frac{1}{2},k} - G^{*}_{i,j+\frac{1}{2},k}\right)
+  }{
+    1 - \frac{\Delta t}{\Delta y}\left(v^{n}_{i,j+\frac{1}{2},k} - v^{n}_{i,j-\frac{1}{2},k}\right)
+  }
+  \]
+  \end{block}
+\end{frame}
+
+%------------------------------------------------------------%
+
+\begin{frame}{Advecção Fracionada - Direção $z$}
+  \vspace{-2cm}
+  \begin{block}{Atualização Final para $f^{n+1}$}
+  \scriptsize
+  \[
+  f^{n+1}_{i,j,k} =
+  f^{**}_{i,j,k}
+  + \frac{\Delta t}{\Delta z}
+  \left[
+    f^{**}_{i,j,k}\left(w^{n}_{i,j,k+\frac{1}{2}} - w^{n}_{i,j,k-\frac{1}{2}}\right)
+    -\left(H^{**}_{i,j,k+\frac{1}{2}} - H^{**}_{i,j,k-\frac{1}{2}}\right)
+  \right]
+  \]
+  \end{block}
+\end{frame}
+
+%------------------------------------------------------------%
+
+\begin{frame}{Cálculo do Fluxo Transportado}
+  \begin{itemize}
+    \item Supondo $u_{i+\frac{1}{2},j,k} > 0$, o fluxo volumétrico é:
+  \end{itemize}
+
+  \vspace{-2cm}
+  \begin{block}{Definição do Fluxo Transportado}
+  \[
+  F_{i+\frac{1}{2},j,k}^{n}
+  = \frac{V_{i+\frac{1}{2},j,k}}{\Delta t\,\Delta y\,\Delta z}
+  \]
+  \end{block}
+\end{frame}
+
+
+\end{document}

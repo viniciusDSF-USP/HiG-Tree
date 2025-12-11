@@ -1,0 +1,202 @@
+\documentclass[../main/main.tex]{subfiles}
+
+\begin{document}
+\section{Equações governantes}
+
+%--------------------------------- 
+\setLayout{mainpoint}
+\begin{frame}
+  \frametitle{Equações governantes}
+\end{frame}
+
+% %--------------------------------- 
+% \setLayout{vertical}
+% \begin{frame}
+%   Teste
+% \end{frame}
+
+\setLayout{vertical}
+\begin{frame}{Hipóteses}
+  \begin{block}{Características do Escoamento}
+    \begin{itemize}
+      \item \textbf{Não estacionário}
+      \item \textbf{Escoamento laminar}
+      \item \textbf{Escoamento isotérmico}
+      \item \textbf{Fluidos incompressíveis}
+      \item \textbf{Duas fases imiscíveis}
+      \item \textbf{Sem transferência de massa através da interface}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\setLayout{vertical}
+\begin{frame}{Conservação da Massa}
+  \begin{block}{Equação da Continuidade}
+    \[
+      \nabla \cdot \mathbf{u} = 0
+    \]
+  \end{block}
+  \vspace{0.5cm}
+  \begin{itemize}
+    \item $\mathbf{u} = (u, v, w)$: campo de velocidade
+    \item Condição de incompressibilidade
+    \item Descreve a conservação da massa para fluidos incompressíveis
+  \end{itemize}
+\end{frame}
+
+\setLayout{vertical}
+\begin{frame}{Balanço de Momentum Linear}
+  \begin{block}{Forma Dimensional}
+    \scriptsize
+    \[
+      \rho\left[\frac{\partial\mathbf{u}}{\partial t} + \mathbf{u}(\nabla\cdot\mathbf{u})\right] = -\nabla p + \nabla\cdot\left\{\mu\left[\nabla\mathbf{u} + (\nabla\mathbf{u})^{T}\right]\right\} + \rho\mathbf{g} + \sigma\kappa\mathbf{n}\delta
+    \]
+  \end{block}
+  \vspace{0.3cm}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \item $\rho$: densidade
+        \item $p$: pressão
+        \item $\mu$: viscosidade absoluta
+        \item $\mathbf{g}$: campo gravitacional
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \item $\sigma$: coeficiente de tensão interfacial
+        \item $\kappa$: curvatura da interface
+        \item $\mathbf{n}$: vetor normal à interface
+        \item $\delta$: função delta (1 na interface, 0 fora)
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Forma Adimensional}
+  \begin{block}{Equação do Momentum Adimensional}
+    \scriptsize
+    \[
+      \rho\left[\frac{\partial\mathbf{u}}{\partial t} + \mathbf{u}(\nabla\cdot\mathbf{u})\right] = -\nabla p + \frac{1}{Re}\nabla\cdot\left\{\mu\left[\nabla\mathbf{u} + (\nabla\mathbf{u})^{T}\right]\right\} + \rho\frac{\mathbf{g}}{g} + \frac{1}{Bo}\kappa\mathbf{n}\delta
+    \]
+  \end{block}
+  \vspace{0.5cm}
+  \begin{itemize}
+    \item $Re = \dfrac{\rho_1 g^{1/2} L^{3/2}}{\mu_1}$: Número de Reynolds
+    \item $Bo = \dfrac{\rho_1 g L^2}{\sigma}$: Número de Bond (Eötvös)
+    \item $L$: comprimento característico
+    \item $V = \sqrt{g L}$: velocidade característica
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Transporte da Fase - Método VOF}
+  \begin{block}{Equação de Transporte da Fração Volumétrica}
+    \[
+      \frac{\partial f}{\partial t} + \nabla \cdot (\mathbf{u} f) = 0
+    \]
+  \end{block}
+  \vspace{0.5cm}
+  \begin{itemize}
+    \item $f$: fração volumétrica ($0 \leq f \leq 1$)
+    \item Reconstrução geométrica da interface via método PLIC
+    \item Algoritmo de advecção com passo fracionado (split)
+    \begin{itemize}
+      \item Evita transporte duplo do mesmo fluido
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% \begin{frame}{Reconstrução da Interface - Método PLIC}
+%   \begin{block}{Plano de Reconstrução}
+%     \[
+%       \mathbf{n} \cdot \mathbf{x} = \alpha
+%     \]
+%   \end{block}
+%   \vspace{0.5cm}
+%   \begin{itemize}
+%     \item $\mathbf{n} = \nabla f / ||\nabla f||$: vetor normal à interface
+%     \item $\mathbf{x}$: ponto no plano de reconstrução
+%     \item $\alpha$: menor distância do plano à origem da célula
+%     \item Volume abaixo do plano: $\bar{f}(\alpha, \mathbf{n}, \Delta) = f$
+%     \item Cálculo de $\alpha$ resolve equação não-linear
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}{Advecção da Interface com Correção}
+%   \begin{block}{Equação Modificada}
+%     \[
+%       \frac{\partial f}{\partial t} + \nabla \cdot (\mathbf{u} f) = f \nabla \cdot \mathbf{u}
+%     \]
+%   \end{block}
+%   \vspace{0.3cm}
+%   \begin{itemize}
+%     \item Correção de divergência para conservação precisa
+%     \item Satisfaz restrições locais e globais de volume
+%     \item Transporte fracionado em três direções:
+%       \begin{itemize}
+%         \item $f^{n} \to f^{*}$ (direção $x$)
+%         \item $f^{*} \to f^{**}$ (direção $y$)
+%         \item $f^{**} \to f^{n+1}$ (direção $z$)
+%       \end{itemize}
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}{Força de Tensão Superficial - Modelo CSF}
+%   \begin{block}{Força de Superfície Contínua}
+%     \[
+%       \mathbf{F}_\sigma = \sigma \kappa \nabla f
+%     \]
+%   \end{block}
+%   \vspace{0.5cm}
+%   \begin{itemize}
+%     \item $\sigma$: coeficiente de tensão interfacial
+%     \item $\kappa$: curvatura da interface
+%     \item $\nabla f$: gradiente da fração volumétrica
+%     \item Modela a força capilar na interface
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}{Cálculo da Curvatura - Método da Função Altura}
+%   \begin{itemize}
+%     \item Stencil $7 \times 3 \times 3$ (ou $3 \times 7 \times 3$, $3 \times 3 \times 7$)
+%     \item Funções altura na direção normal predominante:
+%       \[
+%         h_{i,j} = \sum_{k=-3}^{3} f_{i,j,k} \Delta z
+%       \]
+%     \item Cálculo da curvatura:
+%       \scriptsize
+%       \[
+%         \kappa = \frac{h_{xx} + h_{yy} + h_{xx}h_y^2 + h_{yy}h_x^2 - 2h_{xy}h_x h_y}{(1 + h_x^2 + h_y^2)^{3/2}}
+%       \]
+%       \normalsize
+%     \item Derivadas calculadas por diferenças finitas centradas
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}{Restrições do Passo Temporal}
+%   \begin{itemize}
+%     \item \textbf{Advecção:}
+%       \[
+%         \Delta t < \frac{\Delta}{2|\mathbf{u}|} \equiv \Delta t_{\text{Advecção}}
+%       \]
+%     \item \textbf{Tensão superficial:}
+%       \[
+%         \Delta t < \sqrt{\frac{(\rho_1 + \rho_2)\Delta^3}{4\pi\sigma}} \equiv \Delta t_{\sigma}
+%       \]
+%     \item \textbf{Termo parabólico (viscosidade):}
+%       \[
+%         \Delta t < Re \cdot \Delta^2 \equiv \Delta t_{\text{Parabólico}}
+%       \]
+%     \item \textbf{Termo hiperbólico (inércia):}
+%       \[
+%         \Delta t < \frac{\Delta}{\rho |\mathbf{u}|} \equiv \Delta t_{\text{Hiperbólico}}
+%       \]
+%     \item \textbf{Passo final:}
+%       \[
+%         \Delta t = \min(\Delta t_{\text{Advecção}}, \Delta t_{\sigma}, \Delta t_{\text{Parabólico}}, \Delta t_{\text{Hiperbólico}})
+%       \]
+%   \end{itemize}
+% \end{frame}
+
+
+\end{document}

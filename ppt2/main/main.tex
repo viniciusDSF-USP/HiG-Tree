@@ -1,0 +1,199 @@
+\documentclass[aspectratio=169,t,xcolor=table]{beamer}
+\usepackage[portuguese,brazilian,brazil]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{tikz}
+\usepackage{booktabs} 
+\usepackage{subcaption}
+\usepackage{subfiles}
+
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{abntex2cite}
+\usepackage{cite}
+\usepackage{listings}
+
+
+%\renewcommand\citeleft{[}
+%\renewcommand\citeright{]}
+\hypersetup{
+	pdfborder={0 0 0},            
+	pdftoolbar=true,            
+	pdfmenubar=true,              
+	pdffitwindow=false,
+	pdfstartview={FitH},          
+	pdfauthor={Erick, Pedro, Thiago, Vinicius, Daniel},
+	pdftitle={Hig-Flow}, 
+	pdfsubject={Hig-Flow},
+	pdfproducer={LaTeX},   
+	pdfcreator={pdfLaTeX},  
+	pdfnewwindow=true,      
+	colorlinks=true,      
+	linkcolor=blue,          
+	citecolor=blue,        
+	filecolor=magenta,     
+	urlcolor=blue
+}
+\usetheme{Ufg}
+
+
+\setbeamertemplate{theorems}[numbered]
+\setbeamertemplate{caption}[numbered]
+
+\setPrimaryColor{UFGBlue} 
+\setLogos{lib/logos/icmc.png}{lib/logos/licmc.png}
+
+
+% Fontes, artigos e ppt do castelo 
+% Introdução (Érick)
+% - Apresentar o pq desse software
+% - Revisão bibliografica... inspirada na do artigo
+% Equações Governantes (Pedro)
+% Fluidos newtonianos/viscoelasticos...
+% - Modelos de fluiodos viscoelasticos
+% - Apresentação do casteo.
+% Procedimento numérico
+% 3.1 (Pedro) 
+% 3.2 (Pedro)
+% 3.3 (Vinícius)
+% 3.4 (Vinícius)
+% 3.5 (Vinícius)
+% Validação (Thiago)
+% 4.1 (Thiago)
+% 4.2 (Thiago)
+% 4.3 (Érick)
+% Exemplo prático (Pedro)
+
+%______________________________________________________________________________
+\begin{document}
+	
+	
+
+%-------Capa-------	
+%----------------------------------------------------------------------------------------------------------------------	
+\title{HigFlow e Refinamento de malha adaptativo}
+\author{Erick Rodrigues Canterle\inst{1}  \and  Pedro Vinicius Souza Coimbra\inst{2} \and \\
+	Thiago Ferreira de França e Queiroz\inst{3} \and Vinícius de Sá Ferreira \inst{4}}
+
+\institute[USP] 
+{
+	\inst{1} \inst{2}\inst{3}\inst{4}
+	ICMC - Instituto De Ciências Matemáticas e de Computação \\
+	Universidade de São Paulo
+}
+\date{\today}
+\frame[noframenumbering]{\titlepage}
+%----------------------------------------------------------------------------------------------------------------------
+
+
+
+%-------Sumário-------	
+%----------------------------------------------------------------------------------------------------------------------	
+\setLayout{vertical}
+\begin{frame}{Índices}
+	\tableofcontents
+\end{frame}
+%----------------------------------------------------------------------------------------------------------------------
+
+
+
+%-------Disclaimer-------	
+%----------------------------------------------------------------------------------------------------------------------	
+\setLayout{vertical}
+\begin{frame}
+    \frametitle{\smaller Disclaimer}
+    \begin{figure}[H]
+        \includegraphics[width=0.6\textwidth]{imgs/capa.png}
+    \end{figure}
+\end{frame}
+%----------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+%
+%----------------------------------------------------------------------------------------------------------------------
+%-------Introdução-------	
+\subfile{../introduction/introduction.tex}
+
+
+%-------Equações governantes-------	
+\subfile{../governing_equations/governing_equations.tex}
+
+
+%-------Procedimento Numérico-------	
+\subfile{../numerical_procedure/numerical_procedure.tex}
+\subfile{../numerical_procedure/section_3.1.tex}
+% \subfile{../numerical_procedure/section_3.2.tex}
+\subfile{../numerical_procedure/section_3.3.tex}
+\subfile{../numerical_procedure/section_3.4.tex}
+\subfile{../numerical_procedure/section_3.5.tex}
+\subfile{../numerical_procedure/section_3.6.tex}
+
+
+%-------Validação-------
+\subfile{../validation/validation.tex}
+
+
+%-------Exemplo prático-------	
+\subfile{../practical_examples/practical_examples.tex}
+%---------------------------------------------------------------------------------------------------------------------
+
+
+\setLayout{blank}
+\begin{frame}
+	
+	\centering
+	\vspace{2cm}
+	
+	\textbf{\Huge Muito Obrigado Pela Atenção}
+	
+	\ \\
+	
+	\textbf{Dúvidas e Sugestões}
+	\ \\
+	
+	\text{\footnotesize Erick Rodrigues Canterle, } \\
+	\text{\footnotesize pedro.coimbra@usp.br,} \\
+	\text{\footnotesize queiroztff@usp.br ou} \\
+	\text{\footnotesize desaferreirav@usp.br}
+	\vspace{2cm}
+	\begin{figure}
+		\centering
+		\begin{subfigure}{0.2\textwidth}
+			\centering
+			\includegraphics[height=1cm]{lib/logos/icmc.png}
+		\end{subfigure}
+		\qquad 
+		\begin{subfigure}{0.2\textwidth}
+			\centering
+			\includegraphics[height=1cm]{lib/logos/logo_usp_white.png}
+		\end{subfigure}
+		
+	\end{figure}
+	
+\end{frame}
+%----------------------------------------------------------------------------------------------------------------------
+
+
+
+%-------Referências-------	
+%----------------------------------------------------------------------------------------------------------------------
+\section{Referências}
+\setLayout{horizontal}
+\begin{frame}[allowframebreaks]
+	\frametitle{Referências}
+	\smaller
+    \bibliographystyle{abntex2-alf}
+	\bibliography{../references.bib}
+\end{frame}
+%----------------------------------------------------------------------------------------------------------------------	
+
+
+
+
+\end{document}
+%______________________________________________________________________________

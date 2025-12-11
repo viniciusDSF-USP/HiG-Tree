@@ -1,0 +1,73 @@
+\documentclass[../main/main.tex]{subfiles}
+
+\begin{document}
+\subsection{Reconstrução da Interface}
+
+\begin{frame}{PLIC-VOF: Interface como Plano Local}
+  \vspace{-2cm}
+  \begin{block}{Equação da Interface}
+    \[
+      \mathbf{n} \cdot \mathbf{x} = \alpha
+    \]
+    \scriptsize
+    \(\mathbf{n}\): vetor normal à interface \hfill \(\mathbf{x}\): posição do ponto no plano \hfill
+    \(\alpha\): distância do plano até a origem da célula
+  \end{block}
+
+  \begin{itemize}
+    \item O valor de \(\alpha\) é ajustado para que o volume do fluido reconstruído seja igual à fração volumétrica \( f \).
+    \[
+      \bar{f}(\alpha, \mathbf{n}, \Delta) - f = 0
+    \]
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Cálculo da Normal da Interface}
+  \begin{itemize}
+    \item O vetor normal \(\mathbf{n}\) é obtido como o gradiente da fração volumétrica.
+  \end{itemize}
+
+  \vspace{-3cm}
+  \begin{block}{Normal da Interface}
+    \[
+      \mathbf{n} = \frac{\nabla f}{\left\lVert \nabla f \right\rVert}
+    \]
+  \end{block}
+
+  \begin{itemize}
+    \small
+    \item O gradiente é calculado com stencil $3 \times 3 \times 3$ ao redor da célula interfacial.
+    \item Garantindo 2ª ordem de precisão na reconstrução da direção da interface.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Cálculo do Volume do Fluido Reconstruído}
+  \small
+  \vspace{-2cm}
+  \begin{block}{Volume do Fluido Abaixo do Plano}
+    {\scalebox{0.5}{$ \everymath{\displaystyle} \begin{array}{l}
+        V = \frac{1}{6\,|n_x|\,|n_y|\,|n_z|}\Big[\alpha^{3} \\[4pt]
+        - R(\alpha - |n_x|\Delta x)\cdot(\alpha - |n_x|\Delta x)^{3} \\[4pt]
+        - R(\alpha - |n_y|\Delta y)\cdot(\alpha - |n_y|\Delta y)^{3} \\[4pt]
+        - R(\alpha - |n_z|\Delta z)\cdot(\alpha - |n_z|\Delta z)^{3} \\[4pt]
+        + R(\alpha - |n_x|\Delta x - |n_y|\Delta y)\cdot(\alpha - |n_x|\Delta x - |n_y|\Delta y)^{3} \\[4pt]
+        + R(\alpha - |n_x|\Delta x - |n_z|\Delta z)\cdot(\alpha - |n_x|\Delta x - |n_z|\Delta z)^{3} \\[4pt]
+        + R(\alpha - |n_y|\Delta y - |n_z|\Delta z)\cdot(\alpha - |n_y|\Delta y - |n_z|\Delta z)^{3}
+        \Big]
+    \end{array}$}}
+  \end{block}
+
+  \begin{itemize}
+    \scriptsize
+    \item A função \(R(a)\) ativa termos apenas quando a interface cruza a célula:
+    \[
+    R(a) = \begin{cases}
+    0, & a \le 0\\
+    1, & a > 0
+    \end{cases}
+    \]
+    \item Essa expressão permite determinar \(\alpha\) de modo que \(V\) reproduza a fração volumétrica \(f\).
+  \end{itemize}
+
+\end{frame}
+\end{document}

@@ -1,0 +1,261 @@
+\documentclass[../main/main.tex]{subfiles}
+
+\begin{document}
+\section{Validação}
+
+
+%---------------------------------     
+\setLayout{mainpoint}
+\begin{frame}
+    \frametitle{Validação}
+\end{frame}
+
+% seção 4.0 
+%--------------------------------- 
+\setLayout{vertical}
+\begin{frame}
+    \begin{block}{}
+        \smaller
+        Os testes de validação empregam um campo de velocidade prescrito, de modo a isolar o desempenho do algoritmo de advecção dos efeitos da dissipação numérica do resolvedor de fluxo. A principal métrica quantitativa considerada é o Erro Absoluto de Volume ($\epsilon_{L_{1}}$), o qual quantifica a conservação de massa por meio da diferença absoluta entre os volumes inicial e final ($|V_{I} - V_{F}|$). Assim:
+        \begin{equation*}
+            \epsilon_{L_{1}} = |V_{I} - V_{F}|
+        \end{equation*}
+    \end{block}
+\end{frame}
+
+
+
+
+
+% seção 4.1 3D Shearing Flow Test
+%--------------------------------- 
+\setLayout{vertical}
+\begin{frame}
+    \frametitle{\smaller Teste de Escoamento por Cisalhamento 3D}
+    
+    \begin{block}{\smaller Configuração do Domínio}
+        \begin{itemize}
+            \smaller
+            \item  Domínio cúbico tridimensional, $[0,1]\times[0,1]\times[0,2]$;
+            \item Bolha inicial esférica, raio $R = 0.15$ com centro em $(0.5, 0.75, 0.25)$;
+            \item  Campo de velocidade: 
+            \begin{equation}
+                \vec{u}=\begin{cases}
+                                    u=-sin(\pi x)^{2}sin(2\pi y)cos(\frac{\pi t}{T}) \\ 
+                                    v=sin(\pi y)^{2}sin(2\pi x)cos(\frac{\pi t}{T})\\  
+                                    w=u_{max}(1-\frac{r}{R})^{2}cos(\frac{\pi t}{T})
+                               \end{cases}
+                 \label{eq_u1}
+            \end{equation} 
+            \item Tempo total $T = 6.0$
+            \item  Passo de tempo de $\Delta t=1\times10^{-3}$ 
+        \end{itemize}
+    \end{block}
+    
+ \end{frame}
+ 
+ 
+ \begin{frame}
+     \begin{figure}[H]
+         \includegraphics[width=0.6\textwidth]{imgs/Campo_1.png}
+         \caption{\smaller Gráfico do campo vetorial da Equação (\ref{eq_u1}), instante $t = 0$}
+     \end{figure}
+ \end{frame}
+ 
+ 
+ 
+   \begin{frame}
+     \begin{figure}
+         \includegraphics[width=0.6\textwidth]{imgs/fig-3.png}
+         \caption{\smaller Comparação do formato da interface em $t = 3$ para o teste de escoamento cisalhante 3D. Resultados obtidos com (a) HiG-Flow e (b) o método PCFSC de \cite{ref14}, ambos utilizando uma malha de $64 \times 64 \times 128$ elementos.
+         }
+         \footnotesize Fonte: \cite{higflow}
+     \end{figure}
+ \end{frame}
+
+   
+  \begin{frame}
+      \begin{table}[h!]
+          \centering
+          \begin{tabular}{lccc}
+              \toprule
+              \textbf{Solver} & \textbf{Mesh} & \textbf{Error ($\epsilon_{L_{1}}$)} \\
+              \midrule
+              HiG-Flow & $50 \times 50 \times 100$ & $2.86 \times 10^{-4}$ \\
+              HiG-Flow & $64 \times 64 \times 128$ & $4.48 \times 10^{-5}$ \\
+              CVTNA + unsplit & $64 \times 64 \times 128$ & $3.64 \times 10^{-3}$ \\
+              ELVIRA + COSMIC & $64 \times 64 \times 128$ & $3.97 \times 10^{-3}$ \\
+              CLC-CBIR & $64 \times 64 \times 128$ & $3.27 \times 10^{-3}$ \\ \bottomrule
+              \hline
+          \end{tabular}
+          \caption{Comparação dos erros $L_{1}$ na conservação da fração de volume no teste de escoamento cisalhante 3D em $t = 6$, incluindo os resultados do HiG-Flow e os reportados por \cite{ref14}, \cite{ref39}, \cite{ref40}}
+          \footnotesize Fonte: \cite{higflow}
+      \end{table}
+  \end{frame}
+  
+
+  
+  
+
+% seção 4.2 Teste de Campo de Deformação 3D
+%--------------------------------- 
+\setLayout{vertical}
+\begin{frame}
+    \frametitle{Teste de Campo de Deformação 3D}
+    
+     \begin{block}{\smaller Configuração do Domínio}
+        \begin{itemize}
+            \smaller
+            \item  Domínio cúbico tridimensional, $[0,1]\times[0,1]\times[0,1]$;
+            \item Bolha inicial esférica, raio $R = 0.15$ com centro em $(0.35, 0.35, 0.35)$;
+            \item  Campo de velocidade: 
+            \begin{equation}
+                \vec{u} = \begin{cases}
+                    u = 2\sin(\pi x)^2 \sin(2\pi y) \sin(2\pi z) \cos(\pi t/T) \\
+                    v = -\sin(\pi y)^2 \sin(2\pi x) \sin(2\pi z) \cos(\pi t/T)  \\
+                    w = \sin(\pi z)^2 \sin(2\pi x) \sin(2\pi y) \cos(\pi t/T) 
+                \end{cases}
+                \label{eq_u2}
+            \end{equation} 
+            \item Tempo total $T = 3.0$
+            \item  Passo de tempo de $\Delta t=1\times10^{-3}$ 
+        \end{itemize}
+    \end{block}
+    
+\end{frame}
+
+
+ \begin{frame}
+    \begin{figure}[H]
+        \includegraphics[width=0.6\textwidth]{imgs/campo_2.png}
+        \caption{\smaller Gráfico do campo vetorial da Equação (\ref{eq_u2}), instante $t = 0$}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}
+    \begin{figure}
+        \includegraphics[width=0.6\textwidth]{imgs/fig-5.png}
+        \caption{\smaller Comparação do formato da interface em $t = 3$ para o teste de campo de deformação 3D. Resultados obtidos com (a) HiG-Flow e (b) o método PCFSC de \cite{ref14}, ambos utilizando uma malha com $128^{3}$ elementos.}
+        \footnotesize Fonte: \cite{higflow}
+    \end{figure}
+\end{frame}
+
+
+
+
+\begin{frame}
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{lccc}
+            \toprule
+            \textbf{Solver} & \textbf{Mesh} & \textbf{Error ($\epsilon_{L_{1}}$)} \\
+            \midrule
+            HiG-Flow & $50 \times 50 \times 50$ & $1.15 \times 10^{-4}$ \\
+            HiG-Flow & $64 \times 64 \times 64$ & $2.19 \times 10^{-5}$ \\
+            HiG-Flow & $128 \times 128 \times 128$ & $9.41 \times 10^{-6}$ \\
+            CVTNA + PCFSC unsplit \cite{ref14} & $64 \times 64 \times 64$ & $1.99 \times 10^{-3}$ \\
+            CVTNA + PCFSC unsplit \cite{ref14} & $128 \times 128 \times 128$ & $3.09 \times 10^{-4}$ \\
+            CLC-CBIR \cite{ref40} & $64 \times 64 \times 64$ & $2.09 \times 10^{-3}$ \\
+            CLC-CBIR \cite{ref40} & $128 \times 128 \times 128$ & $3.52 \times 10^{-4}$ \\ 
+            \bottomrule
+        \end{tabular}
+        \caption{\smaller Comparação dos erros $L_{1}$ na conservação da fração de volume no teste de campo de deformação 3D, incluindo os resultados do HiG-Flow e os reportados por \cite{ref14} e \cite{ref40}.}
+        \footnotesize Fonte: \cite{higflow}
+    \end{table}    
+\end{frame}
+
+
+
+% seção 4.3. 3D Buoyancy-Driven Rising Drop
+%--------------------------------- 
+\setLayout{vertical}
+\begin{frame}
+    \frametitle{\smaller Bolha ascendente 3D por empuxo}
+    
+    \begin{block}{Configuração do domínio}
+        \begin{itemize}
+            \item Domínio cúbico tridimensional, $[0,1]\times[0,1]\times[0,2]$;
+            \item bolha inicial esférica, raio $R = 0.25$ com centro em $(0.5,0.5,0.5)$;
+            \item condições de contorno $\mathbf{u} = 0$ nas paredes;
+            \item gravidade $g = 0.98$;
+            \item malha de $50\times50\times100$ células; e
+            \item intervalo de tempo $\Delta t = 2\times 10^{-3}$.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{\smaller Casos simulados}
+    \begin{table}[h!]
+        \centering
+        \small
+        \begin{tabular}{lcccccccc}
+            \toprule
+            Caso & $\rho_1$ & $\rho_2$ & $\mu_1$ & $\mu_2$ & $g$  & $\sigma$ & $\mathrm{Re}$ & $\mathrm{Bo}$ \\
+            \midrule
+            1    & 1000     & 100      & 10      & 1       & 0.98 & 24.5     & 35            & 10            \\
+            2    & 1000     & 1        & 10      & 0.1     & 0.98 & 1.96     & 35            & 125           \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+
+    O fluido externo tem densidade $\rho_1$ e viscosidade $\mu_1$, enquanto o fluido interno tem densidade $\rho_2$ e viscosidade $\mu_2$.
+
+    \begin{table}[h!]
+        \centering
+        \small
+        \begin{tabular}{lccl}
+            \toprule
+            Caso & $\rho_1/\rho_2$ & $\mu_1/\mu_2$ &                      \\
+            \midrule
+            1    & 10              & 10            & bolha quase esférica \\
+            2    & 1000            & 100           & bolha se achata      \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \begin{itemize}
+        \item Número de Reynolds mede a razão entre as forças inerciais e forças viscosas.
+        \item Número de Bond mede a razão entre empuxo e forças de tensão superficial.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Resultados, caso 1}
+    \begin{figure}
+        \includegraphics[width=0.7\textwidth]{imgs/fig-07_silva-et-al.png}
+        \caption{Comparação do formato da bolha em $t = 3$ com HiG-Flow~(esq.) e OpenFOAM~(dir.).}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}
+        \includegraphics[width=0.7\textwidth]{imgs/fig-09_silva-et-al.png}
+        \caption{Evolução do centro de massa da bolha~(esq.) e velocidade de ascensão da bolha~(dir.).}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}{Resultados, caso 2}
+    \begin{figure}
+        \includegraphics[width=0.7\textwidth]{imgs/fig-10_silva-et-al.png}
+        \caption{Comparação do formato da bolha em $t = 3$ com HiG-Flow~(esq.) e OpenFOAM~(dir.).}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}
+        \includegraphics[width=0.7\textwidth]{imgs/fig-11_silva-et-al.png}
+        \caption{Comparação do formato da bolha em $t = 3$ com HiG-Flow~(esq.) e FEEL~(dir.).}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}
+        \includegraphics[width=0.7\textwidth]{imgs/fig-12_silva-et-al.png}
+        \caption{Evolução do centro de massa da bolha~(esq.) e velocidade de ascensão da bolha~(dir.).}
+    \end{figure}
+\end{frame}
+
+
+
+\end{document}

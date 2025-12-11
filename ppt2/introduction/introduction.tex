@@ -1,0 +1,76 @@
+\documentclass[../main/main.tex]{subfiles}
+
+
+\begin{document}
+
+\section{Introdução}
+
+
+%--------------------------------- 
+\setLayout{mainpoint}
+\begin{frame}
+    \frametitle{Introdução}
+\end{frame}
+
+
+%--------------------------------- 
+
+\setLayout{vertical}
+
+\begin{frame}{Contexto Geral}
+    \begin{itemize}
+        \item Escoamentos multifásicos com interfaces têm papel central em diversos setores:
+              \begin{itemize}
+                  \item extração de petróleo e gás;
+                  \item processos químicos;
+                  \item indústria farmacêutica;
+                  \item indústria alimentícia;
+                  \item microfluídica.
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Abordagens principais}
+    \begin{itemize}
+        \item Método front-tracking:\begin{itemize}
+                  \item interface é representada por uma malha que se move com o fluido;
+                  \item capta com precisão a dinâmica da interface;
+                  \item alto custo computacional;
+                  \item dificuldade com deformações e quebras da interface.
+              \end{itemize}
+        \item Método fixed mesh:\begin{itemize}
+                  \item representa a interface implicitamente por um campo escalar em uma malha fixa;
+                  \item volume of fluid (VOF), level-set e phase-field.
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{itemize}
+        \item Volume of fluid (VOF):\begin{itemize}
+                  \item resolve-se uma equação de conservação de massa;
+                  \item representa a fração volumétrica $f(\mathbf{x},t)$ de um fluido em cada célula;
+                  \item interface é representada pelas células em que $0 < f < 1$;
+                  \item boa conservação de massa;
+                  \item boa captura da dinâmica da interface em grande escala.
+              \end{itemize}
+        \item Phase-field:\begin{itemize}
+                  \item interface é representada por um campo esclar;
+                  \item interfaces muito largas.
+              \end{itemize}
+        \item Level-set:\begin{itemize}
+                  \item função de nível;
+                  \item captura precisa da interface;
+                  \item adequado para simular mudanças topológicas.
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+
+
+\end{document}
+
+
+
+

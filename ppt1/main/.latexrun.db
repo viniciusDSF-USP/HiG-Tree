@@ -1,0 +1,250 @@
+{
+  "version": "latexrun-db-v2",
+  "tasks": {
+    "latex::main.tex": {
+      "deps": [
+        [
+          "args",
+          [],
+          [
+            "pdflatex",
+            "-synctex=1",
+            "-interaction",
+            "nonstopmode",
+            "-recorder",
+            "-output-directory",
+            ".",
+            "main.tex"
+          ]
+        ],
+        [
+          "env",
+          [
+            "TEXMFOUTPUT"
+          ],
+          null
+        ],
+        [
+          "env",
+          [
+            "TEXINPUTS"
+          ],
+          null
+        ],
+        [
+          "env",
+          [
+            "TEXFORMATS"
+          ],
+          null
+        ],
+        [
+          "env",
+          [
+            "TEXPOOL"
+          ],
+          null
+        ],
+        [
+          "env",
+          [
+            "TFMFONTS"
+          ],
+          null
+        ],
+        [
+          "env",
+          [
+            "PATH"
+          ],
+          "/home/pedro/.local/share/nvim/mason/bin:/home/pedro/.config/.npm-global/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/flatpak/exports/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/rustup/bin:/home/pedro/.config/scripts:/home/pedro/.local/share//go/bin:/opt/cuda/bin:/home/pedro/.local/bin:/home/pedro/.cache/yay/distrobox/pkg/distrobox/usr/bin"
+        ],
+        [
+          "file",
+          [
+            "/var/lib/texmf/web2c/pdftex/pdflatex.fmt"
+          ],
+          "2a76b72bec7445257bc12987d583bc671007cd3d5bfd24df92a05b45be4ee5e4"
+        ],
+        [
+          "file",
+          [
+            "/usr/share/texmf-dist/web2c/texmf.cnf"
+          ],
+          "6331a5f801df91cb64099777d8ceafc920e4438061e079233605d1e3e305176f"
+        ],
+        [
+          "file",
+          [
+            "main.tex"
+          ],
+          "857b39f21034749d985ed61b0564ea9a252921077d35cfc33f7e8c7c87907c74"
+        ],
+        [
+          "unknown_input",
+          [],
+          1760058593.9489467
+        ],
+        [
+          "file",
+          [
+            "./main.fls"
+          ],
+          "934d043082c699be496f91e225be59be4d3c52ffd1da61758e7e9ca722b2a2a3"
+        ],
+        [
+          "file",
+          [
+            "main.log"
+          ],
+          "c39c883c85346f83f62de5b06a29f8e503a99626801f7ed96e2e951ddc5d8c58"
+        ]
+      ],
+      "output_files": {
+        "./main.fls": "934d043082c699be496f91e225be59be4d3c52ffd1da61758e7e9ca722b2a2a3",
+        "main.log": "c39c883c85346f83f62de5b06a29f8e503a99626801f7ed96e2e951ddc5d8c58"
+      },
+      "extra": {
+        "jobname": "./main",
+        "outname": null,
+        "status": 1
+      }
+    },
+    "latex_commit::main.tex": {
+      "deps": [
+        [
+          "latex",
+          [],
+          [
+            0,
+            "./main.pdf"
+          ]
+        ]
+      ],
+      "output_files": {},
+      "extra": null
+    },
+    "bibtex::main.tex": {
+      "deps": [
+        [
+          "args",
+          [],
+          [
+            "bibtex",
+            "main.aux"
+          ]
+        ],
+        [
+          "cwd",
+          [],
+          "."
+        ],
+        [
+          "env",
+          [
+            "TEXMFOUTPUT"
+          ],
+          null
+        ],
+        [
+          "env",
+          [
+            "BSTINPUTS"
+          ],
+          null
+        ],
+        [
+          "env",
+          [
+            "BIBINPUTS"
+          ],
+          null
+        ],
+        [
+          "env",
+          [
+            "PATH"
+          ],
+          "/home/pedro/.local/share/nvim/mason/bin:/home/pedro/.config/.npm-global/bin:/opt/miniconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/flatpak/exports/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/rustup/bin:/home/pedro/.config/scripts:/home/pedro/.local/share//go/bin:/opt/cuda/bin:/home/pedro/.local/bin:/home/pedro/.cache/yay/distrobox/pkg/distrobox/usr/bin"
+        ],
+        [
+          "auxfile",
+          [
+            "./main.aux"
+          ],
+          "1a563de4f89d171c34f42724ca350ee46f4f92c3f199eba142131afa209a8031"
+        ],
+        [
+          "file",
+          [
+            "/opt/texlive/2025/texmf-dist/bibtex/bst/abntex2/abntex2-alf.bst"
+          ],
+          "eda0ece7abb368337ddb9da68c326a1f733876f1143ff803e588f6c736d3800b"
+        ],
+        [
+          "file",
+          [
+            "/opt/texlive/2025/texmf-dist/bibtex/bib/abntex2/abntex2-options.bib"
+          ],
+          "4249071986296d20a3bc90113258e52383e6cbabdf40671627effc8f91a5f37c"
+        ],
+        [
+          "file",
+          [
+            "./../references.bib"
+          ],
+          "d66c44a5d4522b8c92d9e1ac7679b012f2ef56cee2577f49e3f145a0e6b3b04d"
+        ],
+        [
+          "file",
+          [
+            "./main.bbl"
+          ],
+          "190e5f37eeb16e480464878dd5ab333d751a7ad54c335fcf0c8d57ffdc685590"
+        ],
+        [
+          "file",
+          [
+            "./main.blg"
+          ],
+          "7321c7295ae49d7beeca98e0f2bc2db615da25b155694461968208ba3e9a768b"
+        ],
+        [
+          "file",
+          [
+            "./main.bcf"
+          ],
+          null
+        ]
+      ],
+      "output_files": {
+        "./main.bbl": "190e5f37eeb16e480464878dd5ab333d751a7ad54c335fcf0c8d57ffdc685590",
+        "./main.blg": "7321c7295ae49d7beeca98e0f2bc2db615da25b155694461968208ba3e9a768b",
+        "./main.bcf": null
+      },
+      "extra": {
+        "outbase": "./main",
+        "status": 2,
+        "inputs": [
+          "/opt/texlive/2025/texmf-dist/bibtex/bst/abntex2/abntex2-alf.bst",
+          "/opt/texlive/2025/texmf-dist/bibtex/bib/abntex2/abntex2-options.bib",
+          "./../references.bib"
+        ]
+      }
+    }
+  },
+  "clean": {
+    "./main.fls": "934d043082c699be496f91e225be59be4d3c52ffd1da61758e7e9ca722b2a2a3",
+    "main.log": "c39c883c85346f83f62de5b06a29f8e503a99626801f7ed96e2e951ddc5d8c58",
+    "main.toc": "c9973a00832ed02559e961fa6d3657ddfce773c761081f997a2002f947e68b10",
+    "main.out": "23f052fde34b730cff924219fc2e8166a28e13a6e5eb6ab7f04aab6fffb303d7",
+    "main.nav": "2c5769f77e069245fb0ff0d92e7f0333b937e4fe77cd7656ce6dd69b75b6c28c",
+    "main.snm": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "main.pdf": "3e5c924e4debefc38128483212a03609a63ade0d2312d20ffc9bd41966da638f",
+    "main.vrb": "a82e274c0b5c62aaf73aa8b051fff09bc476edb531f0d6d9d4d65fd4b1be9983",
+    "main.aux": "169572c4ee290b1fd18268e761064aeb3dde68a61a23ec5aac8ac57b23658606",
+    "./main.bbl": "190e5f37eeb16e480464878dd5ab333d751a7ad54c335fcf0c8d57ffdc685590",
+    "./main.blg": "7321c7295ae49d7beeca98e0f2bc2db615da25b155694461968208ba3e9a768b",
+    "./main.bcf": null
+  }
+}

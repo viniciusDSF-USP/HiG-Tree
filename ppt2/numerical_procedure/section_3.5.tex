@@ -1,0 +1,38 @@
+\documentclass[../main/main.tex]{subfiles}
+
+\begin{document}
+\subsection{Tensão superficial e Curvatura}
+
+\begin{frame}{Força de Tensão Superficial - Modelo CSF}
+  \begin{block}{Força de Superfície Contínua}
+    \[
+      \mathbf{F}_\sigma = \sigma \kappa \nabla f
+    \]
+  \end{block}
+  \vspace{0.5cm}
+  \begin{itemize}
+    \item $\sigma$: coeficiente de tensão interfacial
+    \item $\kappa$: curvatura da interface
+    \item $\nabla f$: gradiente da fração volumétrica
+    \item Modela a força capilar na interface
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Cálculo da Curvatura - Método da Função Altura}
+  \begin{itemize}
+    \item Stencil $7 \times 3 \times 3$ (ou $3 \times 7 \times 3$, $3 \times 3 \times 7$)
+    \item Funções altura na direção normal predominante:
+      \[
+        h_{i,j} = \sum_{k-3}^{k+3} f_{i,j,k} \Delta z
+      \]
+    \item Cálculo da curvatura:
+      \scriptsize
+      \[
+        \kappa = \frac{h_{xx} + h_{yy} + h_{xx}h_y^2 + h_{yy}h_x^2 - 2h_{xy}h_x h_y}{(1 + h_x^2 + h_y^2)^{3/2}}
+      \]
+      \normalsize
+    \item Derivadas calculadas por diferenças finitas centradas
+  \end{itemize}
+\end{frame}
+
+\end{document}

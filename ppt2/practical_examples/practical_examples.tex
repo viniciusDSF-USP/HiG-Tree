@@ -1,0 +1,71 @@
+\documentclass[../main/main.tex]{subfiles}
+
+\begin{document}
+\section{Adaptatividade de malha}
+
+
+%--------------------------------- 
+\setLayout{mainpoint}
+\begin{frame}
+  \frametitle{Adaptatividade de malha}
+\end{frame}
+
+
+%--------------------------------- 
+\setLayout{vertical}
+
+\begin{frame}{Introdução às Malhas Dinâmicas}
+  \begin{columns}
+    \begin{column}{0.6\textwidth}
+      \begin{itemize}
+        \item \textbf{Definição}: Malhas que se adaptam a mudanças na geometria durante simulações transientes
+        \item \textbf{Objetivo}: Manter qualidade e validade da malha sem intervenção do usuário
+        \item \textbf{Métodos Principais}:
+          \begin{itemize}
+            \item \textbf{Método R}: Rearranjo de nós
+            \item \textbf{Método H}: Refinamento/desrefinamento
+            \item \textbf{Método P}: Enriquecimento polinomial
+          \end{itemize}
+        \item \textbf{Aplicações}: Escoamentos com superfícies móveis, FSI, turbomáquinas
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/tipos_refinamento_adaptativo.png}
+        \caption{Tipos de refinamento adaptativo}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Aplicações e Casos de Estudo}
+  \begin{itemize}
+    \item \textbf{Cilindro em Canal}:
+      \begin{itemize}
+        \item Comparação Laplaciano vs Pseudo-Sólido
+        \item Deslocamento máximo sem inversão
+      \end{itemize}
+
+    \item \textbf{Turbina Eólica (VAWT)}:
+      \begin{itemize}
+        \item Malhas deslizantes para rotação
+        \item Domínio interno rotativo e externo fixo
+      \end{itemize}
+
+    \item \textbf{Bomba Micro}:
+      \begin{itemize}
+        \item Método ALE para FSI
+        \item Cantilevers como válvulas
+      \end{itemize}
+
+    \item \textbf{Refinamento Adaptativo Dinâmico (AMR)}:
+      \begin{itemize}
+        \item Captura de gradientes elevados
+        \item Aplicação em indutor espiral
+      \end{itemize}
+    \item Vídeo de exemplo: \url{https://youtu.be/AiDFNevhJ98?si=Do-D2FmBH5UynQNJ}
+  \end{itemize}
+\end{frame}
+
+\end{document}

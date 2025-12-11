@@ -1,0 +1,138 @@
+\documentclass[../main/main.tex]{subfiles}
+
+\begin{document}
+\subsection{HiG-Tree e HiG-Flow}
+
+\begin{frame}{HiG-Tree e HiG-Flow Software - Estrutura de Dados}
+  \begin{itemize}
+    \item \textbf{HiG-Tree}: estrutura de dados hierárquica em malha cartesiana
+    \item Elementos de tamanhos variáveis com refinamento espacial recursivo
+    \item Baseada em \textbf{m-tree} (Exemplo na figura)
+    \item Malha não-estruturada com refinamento arbitrário
+    \item Projetada para ser genérica e extensível a qualquer número de dimensões
+  \end{itemize}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{imgs/hig-tree-structure.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}{HiG-Tree - Particionamento de Domínio}
+  \begin{itemize}
+    \item Domínios compostos por blocos para geometrias complexas
+    \item Discretização usando estrutura HiG-Tree
+    \item Particionamento com biblioteca \textbf{Zoltan-Trilinos}
+      \begin{itemize}
+        \item Garante boa distribuição de carga entre processos
+      \end{itemize}
+    \item Armazenamento e enumeração de propriedades em células e facetas
+    \item Refinamento espacial apropriado para cada problema simulado
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{HiG-Tree - Aproximações e Interpolações}
+
+  \begin{columns}
+    
+    % Coluna da esquerda - Texto
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \item Módulo para estimativa de propriedades em células e facetas
+        \item Método dos \textbf{Mínimos Quadrados Móveis (MLS)}
+        \item Seleção da ordem polinomial de aproximação
+        \item Elimina dependência geométrica usando nuvem de pontos vizinhos
+        \item Essencial para malhas com elementos de diferentes níveis de refinamento
+      \end{itemize}
+    \end{column}
+    
+    % Coluna da direita - Imagem
+    \begin{column}{0.5\textwidth}
+      \begin{center}
+        \includegraphics[width=\textwidth]{imgs/stencil.png}
+      \end{center}
+    \end{column}
+    
+  \end{columns}
+
+\end{frame}
+\begin{frame}{Exemplo: Aproximação por Diferenças Finitas}
+  \begin{block}{Derivada Segunda com Interpolação MLS}
+    \[
+      \frac{\partial^{2}u}{\partial x^{2}} \approx \frac{1}{\Delta x^{2}}(u_{l} - 2u_{c} + u_{r})
+    \]
+  \end{block}
+  \begin{itemize}
+    \item Ponto $u_{l}$ não coincide com a malha → requer interpolação
+    \item Interpolação MLS:
+      \[
+        u_{l} = \sum_{k \in \mathcal{I}_{l}} w^{l}_{k} u_{k}
+      \]
+    \item $\mathcal{I}_{l}$: conjunto de índices dos vizinhos de $u_{c}$
+    \item $w^{l}_{k}$: pesos calculados pelo método MLS
+    \item $N_{l}$: número de vizinhos para manter a ordem de precisão
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{HiG-Tree - Solução de Sistemas Lineares}
+  \begin{itemize}
+    \item Duas bibliotecas poderosas para computação paralela:
+      \begin{itemize}
+        \item \textbf{HYPRE}: High Performance Preconditioners
+        \item \textbf{PETSc}: Portable, Extensible Toolkit for Scientific Computation
+      \end{itemize}
+    \item Otimizadas para arquiteturas de memória compartilhada e distribuída
+    \item Rotinas de alto desempenho testadas em diversos códigos de CFD
+    \item Tolerância de convergência tipicamente $1 \times 10^{-7}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{HiG-Flow - Capacidades de Simulação}
+  \begin{itemize}
+    \item Simulação de escoamentos monofásicos:
+      \begin{itemize}
+        \item Fluidos Newtonianos
+        \item Generalizados Newtonianos
+        \item Viscoelásticos
+      \end{itemize}
+    \item Simulação de escoamentos bifásicos:
+      \begin{itemize}
+        \item Método VOF para representação de interface
+      \end{itemize}
+    \item Dimensão arbitrária (1D, 2D, 3D, ..., ND)
+    \item Design modular para implementação fácil de novas técnicas
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{HiG-Flow - Esquemas Temporais}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Métodos Explícitos}
+        \begin{itemize}
+          \item Euler explícito
+          \item Runge-Kutta TVD 2ª ordem (Euler modificado)
+          \item Runge-Kutta TVD 3ª ordem
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Métodos Implícitos}
+        \begin{itemize}
+          \item Euler implícito
+          \item Crank-Nicholson
+          \item BDF 2ª ordem (Backward Differentiation Formula)
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{0.5cm}
+  \begin{itemize}
+    \item Métodos de projeção para acoplamento pressão-velocidade:
+      \begin{itemize}
+        \item Incremental (2ª ordem no tempo)
+        \item Não-incremental (1ª ordem no tempo)
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+
+\end{document}

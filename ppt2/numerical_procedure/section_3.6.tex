@@ -1,0 +1,33 @@
+\documentclass[../main/main.tex]{subfiles}
+
+\begin{document}
+\subsection{Restrições do Passo Temporal}
+
+\begin{frame}{Restrições do Passo Temporal}
+  \scriptsize
+  \begin{itemize}
+    \item \textbf{Advecção:}
+      \[
+        \Delta t < \frac{\Delta}{2|\mathbf{u}|} \equiv \Delta t_{\text{Advecção}}
+      \]
+    \item \textbf{Tensão superficial:}
+      \[
+        \Delta t < \sqrt{\frac{(\rho_1 + \rho_2)\Delta^3}{4\pi\sigma}} \equiv \Delta t_{\sigma}
+      \]
+    \item \textbf{Termo parabólico (viscosidade):}
+      \[
+        \Delta t < Re \cdot \Delta^2 \equiv \Delta t_{\text{Parabólico}}
+      \]
+    \item \textbf{Termo hiperbólico (inércia):}
+      \[
+        \Delta t < \frac{\Delta}{\rho |\mathbf{u}|} \equiv \Delta t_{\text{Hiperbólico}}
+      \]
+    \item \textbf{Passo final:}
+      \[
+        \Delta t = \min(\Delta t_{\text{Advecção}}, \Delta t_{\sigma}, \Delta t_{\text{Parabólico}}, \Delta t_{\text{Hiperbólico}})
+      \]
+  \end{itemize}
+  $\Delta = \min \{\Delta x, \Delta y, \Delta z\},\ \rho = \max \{\rho_1, \rho_2\}$
+\end{frame}
+
+\end{document}

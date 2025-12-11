@@ -1,0 +1,76 @@
+\documentclass[../main/main.tex]{subfiles}
+
+\begin{document}
+\subsection{Procedimento de discretização no Hig-Flow}
+\begin{frame}{Procedimento de Discretização - Método de Projeção}
+  \begin{itemize}
+    \item Métodos de projeção de Chorin para desacoplar campos de pressão e velocidade
+    \item Versão incremental: 2ª ordem de precisão temporal
+    \item Versão não-incremental: 1ª ordem de precisão temporal
+    \item Utilizado método incremental neste trabalho
+  \end{itemize}
+  \begin{block}{Equações Discretizadas (Euler Explícito)}
+    \scriptsize
+    \[
+      \nabla\cdot\mathbf{u}^{n+1} = 0
+    \]
+    \[
+      \frac{\rho^{n+1}\mathbf{u}^{n+1}-\rho^{n}\mathbf{u}^{n}}{\Delta t} = -\rho^{n}(\mathbf{u}^{n}\cdot\nabla\mathbf{u}^{n})-\nabla p^{n+1} + \frac{1}{Re}\nabla\cdot\left\{\mu\Big[\nabla\mathbf{u}^{n}+(\nabla\mathbf{u}^{n})^{\mathrm{T}}\Big]\right\}+\mathbf{F}^{n}
+    \]
+  \end{block}
+\end{frame}
+
+\begin{frame}{Método de Projeção Incremental - Passo 1}
+  \begin{block}{Velocidade Intermediária $\mathbf{u}^{*}$}
+    \scriptsize
+    \[
+      \frac{\rho^{*}\mathbf{u}^{*}-\rho^{n}\mathbf{u}^{n}}{\Delta t} = -\rho^{n}(\mathbf{u}^{n}\cdot\nabla\mathbf{u}^{n})-\nabla p^{n} + \frac{1}{Re}\nabla\cdot\left\{\mu\left[\nabla\mathbf{u}^{*}+(\nabla\mathbf{u}^{*})^{T}\right]\right\}+\mathbf{F}^{n}
+    \]
+  \end{block}
+  \begin{itemize}
+    \item Calcula velocidade intermediária usando pressão do passo anterior
+    \item $\mathbf{F}^{n} = \rho^{n}\dfrac{\mathbf{g}}{g} + \dfrac{1}{Bo}(\kappa\mathbf{n}\delta)^{n}$
+    \item Resolvido implicitamente para $\mathbf{u}^{*}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Método de Projeção Incremental - Passo 2}
+  \begin{block}{Correção da Velocidade}
+    \[
+      \frac{\rho^{n+1}\mathbf{u}^{n+1}-\rho^{n}\mathbf{u}^{*}}{\Delta t} = -\nabla(p^{n+1}-p^{n}) = -\nabla\Delta p
+    \]
+    \[
+      \rho^{n+1}\mathbf{u}^{n+1} = \rho^{n}\mathbf{u}^{*} - \Delta t\nabla\Delta p
+    \]
+  \end{block}
+  \begin{itemize}
+    \item Corrige velocidade intermediária com gradiente de pressão atualizado
+    \item $\Delta p = p^{n+1} - p^{n}$: correção de pressão
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Método de Projeção Incremental - Passo 3}
+  \begin{block}{Equação de Poisson para Pressão}
+    \[
+      \nabla\cdot\left(\frac{1}{\rho^{n}}\nabla\Delta p\right) = \frac{1}{\Delta t}\nabla\cdot\mathbf{u}^{*}
+    \]
+  \end{block}
+  \begin{itemize}
+    \item Aplicando divergência em ambos os lados da correção de velocidade
+    \item Invocando hipótese de incompressibilidade: $\nabla\cdot\mathbf{u}^{n+1} = 0$
+    \item Sistema linear para $\Delta p$ resolvido iterativamente
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Solução para Escoamentos Bifásicos}
+  \begin{itemize}
+    \item Propriedades físicas variam no domínio: $\rho$ e $\mu$ não constantes
+    \item Resolução da equação de Poisson e momentum requer cuidados especiais
+    \item Método iterativo \textbf{BiCGS} (BiConjugate Gradient Squared)
+    \item Precondicionador \textbf{Block Jacobi}
+    \item Tolerância de convergência: $1 \times 10^{-7}$ na norma do resíduo
+    \item Tratamento adequado das descontinuidades na interface
+  \end{itemize}
+\end{frame}    
+
+\end{document}

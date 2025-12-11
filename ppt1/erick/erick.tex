@@ -1,0 +1,81 @@
+\documentclass[../main/main.tex]{subfiles}
+
+%_______________________________________________________________________________________________________________________
+\begin{document}
+
+
+\section{Mínimos quadrados}
+
+\setLayout{mainpoint}
+\begin{frame}
+	\frametitle{Mínimos quadrados, mínimos quadrados ponderados, mínimos quadrados móveis}
+\end{frame}
+
+\setLayout{vertical}
+\begin{frame}{Mínimos quadrados -- LS}
+
+	Seja $f$ uma função e $V$ um espaço vetorial $(n+1)$-dimensional gerado pelas funções $\varphi_0,\varphi_1,\dotsc,\varphi_n$. Deseja-se encontrar $F^*\in V$ com $F^* = \sum_{i=0}^n \alpha_i^*\varphi_i$ que melhor aproxima $f$, i.e., quer-se obter $Q = \min_{\alpha^*}\lVert f - F^*\rVert^2$.
+\end{frame}
+
+\begin{frame}
+	Para encontrar $F^*$, basta calcular e resolver o sistema de equações normais\[
+		\begin{bmatrix}
+			\langle\varphi_0,\varphi_0\rangle & \cdots & \langle\varphi_0,\varphi_n\rangle \\
+			\vdots                            & \ddots & \vdots                            \\
+			\langle\varphi_n,\varphi_0\rangle & \cdots & \langle\varphi_n,\varphi_n\rangle
+		\end{bmatrix}\begin{bmatrix}
+			\alpha_0^* \\
+			\vdots     \\
+			\alpha_n^*
+		\end{bmatrix} = \begin{bmatrix}
+			\langle f,\varphi_0\rangle \\
+			\vdots                     \\
+			\langle f,\varphi_n\rangle
+		\end{bmatrix}
+	\]
+\end{frame}
+
+\begin{frame}{Mínimos quadrados ponderados -- WLS}
+	Vê-se que ${\langle\cdot,\cdot\rangle}_W$ dado por ${\langle u,v\rangle}_W = \sum_{i=0}^n w_i u_i v_i = u^\intercal W v$ com $W = \operatorname{diag}(w_0,\dotsc,w_n)$ e $w_i > 0$ define um produto interno em $\mathbb{R}^{n+1}$.\pause
+
+	O método dos mínimos quadrados ponderados generaliza LS ao considerar produtos internos da forma ${\langle\cdot,\cdot\rangle}_W$.\pause
+
+	Nota-se que LS é WLS com $W = I$.
+\end{frame}
+
+\begin{frame}{Mínimos quadrados móveis -- MLS}
+	Consideremos $f$ uma função discreta definida em $n+1$ pontos. Seja $V$ um espaço vetorial $(m+1)$-dimensional gerado por $\{\varphi_0,\dotsc,\varphi_m\}$ com $m < n$.\pause
+
+	Quer-se aproximar $f$ por uma função $F^*\in V$ por mínimos quadrados ponderados.\pause
+
+	Definamos $w$ uma função peso dada por\[
+		w(x) = \psi\left(\frac{|x - c|}{\sigma}\right),\quad \psi(t) = e^{-t^2},
+	\] onde $c$ é o centro da gaussiana com raio controlado por $\sigma$.
+\end{frame}
+
+\begin{frame}
+	Definamos ${\langle\cdot,\cdot\rangle}_{W(x)}$ um produto interno dado por\[
+		{\langle u,v\rangle}_{W(x)} = \sum_{i=0}^n w_i(x)u_i v_i,
+	\] onde\[
+		w_i(x) = \psi\left(\frac{|x - x_i|}{\sigma}\right)
+	\] e $W(x) = \operatorname{diag}(w_0(x),w_1(x),\dotsc,w_n(x))$.
+\end{frame}
+
+\begin{frame}
+	A melhor aproximação de $f$ no sentido dos mínimos quadrados ponderados é dada pela função $F^* = \sum_{i=0}^m \alpha_i^*\varphi_i$, em que $(\alpha_0^*,\dotsc,\alpha_m^*)$ é solução do sistema linear $A(x)\alpha^*(x) = b(x)$, onde\[
+		A(x) = \begin{bmatrix}
+			{\langle\varphi_0,\varphi_0\rangle}_{W(x)} & \cdots & {\langle\varphi_0,\varphi_n\rangle}_{W(x)} \\
+			\vdots                                     & \ddots & \vdots                                     \\
+			{\langle\varphi_n,\varphi_0\rangle}_{W(x)} & \cdots & {\langle\varphi_n,\varphi_n\rangle}_{W(x)}
+		\end{bmatrix}
+	\]
+	e\[
+		b(x) = \begin{bmatrix}
+			{\langle f,\varphi_0\rangle}_{W(x)} \\
+			\vdots                              \\
+			{\langle f,\varphi_n\rangle}_{W(x)}
+		\end{bmatrix}.
+	\]
+\end{frame}
+
+\end{document}
