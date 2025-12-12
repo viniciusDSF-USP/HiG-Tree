@@ -1,0 +1,95 @@
+\documentclass[../main/main.tex]{subfiles}
+
+\begin{document}
+    \section{Fração de Volume}
+    
+    
+    %--------------------------------- 
+    \setLayout{mainpoint}
+    
+    \begin{frame}
+        \frametitle{Fração de Volume}
+    \end{frame}
+    
+    \setLayout{vertical}
+    \begin{frame}
+        \frametitle{\smaller Difusão da Fração de Volume}
+         \vspace{1.5cm}
+         \centering
+        \begin{columns}
+            \begin{column}{0.33\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{imgs/b01.png}
+                \captionof{figure}{$\text{step}=5$}
+            \end{column}
+            \begin{column}{0.33\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{imgs/b02.png}
+                \captionof{figure}{\footnotesize $\text{step}=15$}
+            \end{column}
+            \begin{column}{0.33\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{imgs/b03.png}
+                \captionof{figure}{$\text{step}=25$}
+            \end{column}
+        \end{columns}
+        
+    \end{frame}
+    
+    
+    
+    
+    
+    \setLayout{vertical}
+    \begin{frame}[fragile]
+        \frametitle{Filtro}
+        
+        \begin{block}{}
+            \scriptsize
+            \begin{verbatim}
+                 // Valor definido empiricamente (altamente testado)
+                if (ns->par.step == 5 || ns->par.step == 10){
+                    real val = 0.4;
+                    // Operador ternário para calcular a fração de volume sharp
+                    fracvol = (fracvol > 1 - val) ? 1 : (fracvol < val ? 0 : fracvol);
+                }
+            \end{verbatim}
+        \end{block}
+        
+    \end{frame}
+    
+    
+  
+        \setLayout{vertical}
+    \begin{frame}
+        \frametitle{\smaller Aplicação do filtro na Fração de Volume}
+        \vspace{1.5cm}
+        \centering
+        \begin{columns}
+            \begin{column}{0.33\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{imgs/c_b01.png}
+                \captionof{figure}{$\text{step}=5$}
+            \end{column}
+            \begin{column}{0.33\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{imgs/c_b02.png}
+                \captionof{figure}{\footnotesize $\text{step}=15$}
+            \end{column}
+            \begin{column}{0.33\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{imgs/c_b03.png}
+                \captionof{figure}{$\text{step}=25$}
+            \end{column}
+        \end{columns}
+        
+    \end{frame}
+    
+    
+    
+    
+    
+    
+    
+   
+\end{document}
